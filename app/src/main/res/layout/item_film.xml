@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!-- MaterialCardView -->
+<com.google.android.material.card.MaterialCardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+
+    android:id="@+id/item_film_MaterialCardView"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:clickable="true"
+    android:focusable="true"
+    android:foreground="?android:attr/selectableItemBackground">
+
+    <!-- ConstraintLayout -->
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <!-- ImageView: Image of film -->
+        <ImageView
+            android:id="@+id/item_film_ImageView"
+            android:layout_width="@dimen/size_image_item_film"
+            android:layout_height="@dimen/size_image_item_film"
+            android:layout_margin="@dimen/margin_normal"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/item_film_name"
+            android:contentDescription="@null"
+            tools:srcCompat="@tools:sample/backgrounds/scenic"
+            tools:scaleType="centerCrop"/>
+
+        <!-- TextView: Name of film -->
+        <TextView
+            android:id="@+id/item_film_name"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/margin_normal"
+            app:layout_constraintTop_toTopOf="@id/item_film_ImageView"
+            app:layout_constraintBottom_toBottomOf="@id/item_film_ImageView"
+            app:layout_constraintStart_toEndOf="@id/item_film_ImageView"
+            app:layout_constraintEnd_toEndOf="parent"
+            tools:text="@tools:sample/first_names"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</com.google.android.material.card.MaterialCardView>

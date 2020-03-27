@@ -6,4 +6,7 @@
     <string name="title_list_fragment">Box Office</string>
     <string name="title_details_fragment">Details</string>
 
+    <!-- fragment_list.xml -->
+    <string name="no_data">No data</string>
+
 </resources>

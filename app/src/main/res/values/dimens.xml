@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<resources>
+
+    <!-- ImageView Size -->
+    <dimen name="size_image_item_film">80dp</dimen>
+
+    <!-- Margin -->
+    <dimen name="margin_tiny">4dp</dimen>
+    <dimen name="margin_little">8dp</dimen>
+    <dimen name="margin_normal">16dp</dimen>
+    <dimen name="margin_big">48dp</dimen>
+    <dimen name="margin_heavy">88dp</dimen>
+
+</resources>
