@@ -1,6 +1,7 @@
 package com.mancel.yann.boxoffice.views.fragments
 
 import android.view.View
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.mancel.yann.boxoffice.R
@@ -48,6 +49,10 @@ class ListFragment : BaseFragment(), AdapterCallback {
     override fun onClick(v: View?) {
         // Data from Tag
         (v?.tag as? Film)?.name?.let { this.mCallback?.showMessage(it) }
+
+        // Navigation by action (Safe Args)
+        val action = ListFragmentDirections.actionNavigationListFragmentToNavigationDetailsFragment()
+        this.findNavController().navigate(action)
     }
 
     // -- RecyclerView --

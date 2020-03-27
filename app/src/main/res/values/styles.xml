@@ -5,6 +5,9 @@
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
+
+        <!-- Drawer arrow -->
+        <item name="drawerArrowStyle">@style/DrawerArrowStyle</item>
     </style>
 
     <!-- NoActionBar with DarkActionBar theme. -->
@@ -15,10 +18,31 @@
 
     <!-- *********************************** Toolbar ******************************************* -->
 
+    <!-- Drawer arrow style -->
+    <style name="DrawerArrowStyle" parent="Widget.AppCompat.DrawerArrowToggle">
+        <item name="spinBars">true</item>
+        <item name="color">@android:color/white</item>
+    </style>
+
     <!-- Toolbar style -->
     <style name="ToolbarStyle" parent="ThemeOverlay.AppCompat.Dark">
         <item name="titleTextColor">@android:color/white</item>
         <item name="android:background">@color/colorPrimary</item>
+    </style>
+
+    <!-- *********************************** TextView ****************************************** -->
+
+    <!-- One line TextView sub-style -->
+    <style name="OneLineTextViewSubStyle" parent="AppTheme">
+        <item name="android:maxLines">@integer/one_line_text_view</item>
+        <item name="android:ellipsize">end</item>
+    </style>
+
+    <!-- TextView style (level 1, black, normal) -->
+    <style name="TextViewStyle1" parent="OneLineTextViewSubStyle">
+        <item name="android:textColor">@android:color/black</item>
+        <item name="android:textSize">15sp</item>
+        <item name="android:textStyle">normal</item>
     </style>
 
 </resources>

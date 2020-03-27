@@ -12,4 +12,7 @@
     <dimen name="margin_big">48dp</dimen>
     <dimen name="margin_heavy">88dp</dimen>
 
+    <!-- Padding -->
+    <dimen name="padding_normal">16dp</dimen>
+
 </resources>

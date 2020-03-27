@@ -20,7 +20,7 @@
 
         <!-- ImageView: Image of film -->
         <ImageView
-            android:id="@+id/item_film_ImageView"
+            android:id="@+id/item_film_image"
             android:layout_width="@dimen/size_image_item_film"
             android:layout_height="@dimen/size_image_item_film"
             android:layout_margin="@dimen/margin_normal"
@@ -38,11 +38,12 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginEnd="@dimen/margin_normal"
-            app:layout_constraintTop_toTopOf="@id/item_film_ImageView"
-            app:layout_constraintBottom_toBottomOf="@id/item_film_ImageView"
-            app:layout_constraintStart_toEndOf="@id/item_film_ImageView"
+            app:layout_constraintTop_toTopOf="@id/item_film_image"
+            app:layout_constraintBottom_toBottomOf="@id/item_film_image"
+            app:layout_constraintStart_toEndOf="@id/item_film_image"
             app:layout_constraintEnd_toEndOf="parent"
-            tools:text="@tools:sample/first_names"/>
+            tools:text="@tools:sample/first_names"
+            style="@style/TextViewStyle1"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

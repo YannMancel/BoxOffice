@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<resources>
+
+    <!-- TextView -->
+    <integer name="one_line_text_view">1</integer>
+
+</resources>

@@ -19,6 +19,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        android:scrollbars="vertical"
         tools:listitem="@layout/item_film"/>
 
     <!-- TextView: No data -->
@@ -30,6 +31,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        android:text="@string/no_data"/>
+        android:text="@string/no_data"
+        style="@style/TextViewStyle1"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
