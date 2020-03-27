@@ -5,6 +5,8 @@ import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupWithNavController
 import com.mancel.yann.boxoffice.R
+import com.mancel.yann.boxoffice.utils.MessageTools
+import com.mancel.yann.boxoffice.views.fragments.FragmentCallback
 import kotlinx.android.synthetic.main.activity_main.*
 
 /**
@@ -12,9 +14,9 @@ import kotlinx.android.synthetic.main.activity_main.*
  * Name of the project: BoxOffice
  * Name of the package: com.mancel.yann.boxoffice.views.activities
  *
- * A [BaseActivity] subclass.
+ * A [BaseActivity] subclass which implements [FragmentCallback].
  */
-class MainActivity : BaseActivity() {
+class MainActivity : BaseActivity(), FragmentCallback {
 
     // METHODS -------------------------------------------------------------------------------------
 
@@ -30,6 +32,12 @@ class MainActivity : BaseActivity() {
 
         // Navigation
         this.configureFragmentNavigation()
+    }
+
+    // -- FragmentCallback interface --
+
+    override fun showMessage(message: String) {
+        MessageTools.showMassageWithSnackbar(this.activity_main_CoordinatorLayout, message)
     }
 
     // -- Navigation component --

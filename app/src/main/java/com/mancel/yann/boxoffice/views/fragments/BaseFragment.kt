@@ -20,6 +20,7 @@ abstract class BaseFragment : Fragment() {
     // FIELDS --------------------------------------------------------------------------------------
 
     protected lateinit var mRootView: View
+    protected var mCallback: FragmentCallback? = null
 
     // METHODS -------------------------------------------------------------------------------------
 
@@ -39,6 +40,14 @@ abstract class BaseFragment : Fragment() {
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
+
+        // Configures the callback to the parent activity
+        if (context is FragmentCallback) {
+            this.mCallback = context
+        }
+        else {
+            throw ClassCastException("$context must implement FragmentCallback")
+        }
     }
 
     override fun onCreateView(
