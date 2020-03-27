@@ -66,7 +66,7 @@ class FilmAdapter(
      */
     private fun configureDesign(holder: FilmViewHolder, film: Film) {
         // Name
-        holder.itemView.item_film_name.text = film.name
+        holder.itemView.item_film_name.text = film.title
     }
 
     // -- Film --

@@ -33,8 +33,8 @@ class ListFragment : BaseFragment(), AdapterCallback {
         // UI
         this.configureRecyclerView()
 
-        val films = listOf(Film("Yann"), Film("Melina"))
-        this.mAdapter.updateData(films)
+//        val films = listOf(Film("Yann"), Film("Melina"))
+//        this.mAdapter.updateData(films)
     }
 
     // -- AdapterCallback interface --
@@ -48,7 +48,7 @@ class ListFragment : BaseFragment(), AdapterCallback {
 
     override fun onClick(v: View?) {
         // Data from Tag
-        (v?.tag as? Film)?.name?.let { this.mCallback?.showMessage(it) }
+        (v?.tag as? Film)?.title?.let { this.mCallback?.showMessage(it) }
 
         // Navigation by action (Safe Args)
         val action = ListFragmentDirections.actionNavigationListFragmentToNavigationDetailsFragment()

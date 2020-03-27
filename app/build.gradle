@@ -1,6 +1,7 @@
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
+apply plugin: 'kotlin-kapt'
 apply plugin: "androidx.navigation.safeargs.kotlin"
 
 android {
@@ -15,6 +16,12 @@ android {
         versionName "1.0"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+
+        // Enable use of 64K or more method references
+        multiDexEnabled true
+
+        // API Keys
+        resValue "string", "omdb_key", (project.findProperty("OMDB_API_KEY") ?: "")
     }
 
     buildTypes {
@@ -43,9 +50,25 @@ dependencies {
     // Material design
     implementation "com.google.android.material:material:$material_design_version"
 
+    // Multidex
+    implementation "androidx.multidex:multidex:$multidex_version"
+
     // Navigation
     implementation "androidx.navigation:navigation-fragment-ktx:$nav_version"
     implementation "androidx.navigation:navigation-ui-ktx:$nav_version"
+
+    // Retrofit
+    implementation "com.squareup.retrofit2:retrofit:$retrofit_version"
+    implementation "com.squareup.retrofit2:converter-moshi:$retrofit_version"
+    implementation "com.squareup.retrofit2:adapter-rxjava2:$retrofit_version"
+
+    // RX Kotlin + RX Android
+    implementation "io.reactivex.rxjava2:rxandroid:$rx_android_version"
+    implementation "io.reactivex.rxjava2:rxkotlin:$rx_kotlin_version"
+
+    // Moshi kotlin
+    implementation "com.squareup.moshi:moshi-kotlin:$moshi_kotlin_version"
+    kapt "com.squareup.moshi:moshi-kotlin-codegen:$moshi_kotlin_version"
 
     // TESTS ---------------------------------------------------------------------------------------
 
