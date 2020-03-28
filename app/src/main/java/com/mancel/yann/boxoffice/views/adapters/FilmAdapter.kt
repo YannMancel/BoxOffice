@@ -5,6 +5,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.mancel.yann.boxoffice.R
 import com.mancel.yann.boxoffice.models.Film
 import com.mancel.yann.boxoffice.utils.FilmDiffCallback
@@ -65,8 +66,17 @@ class FilmAdapter(
      * @param film a [Film]
      */
     private fun configureDesign(holder: FilmViewHolder, film: Film) {
+        // Image
+        film.poster?.let {
+            Glide.with(holder.itemView)
+                 .load(it)
+                 .centerCrop()
+                 .error(R.drawable.ic_close)
+                 .into(holder.itemView.item_film_image)
+        }
+
         // Name
-        holder.itemView.item_film_name.text = film.title
+        film.title?.let { holder.itemView.item_film_name.text = it }
     }
 
     // -- Film --

@@ -9,5 +9,9 @@ object DummyBoxOffice {
 
     val filmNames = listOf("Guardians of the Galaxy Vol. 2",
                            "Iron Man 3",
-                           "Avengers: Endgame")
+                           "Avengers: Endgame",
+                           "Black Panther",
+                           "Captain America: Civil War",
+                           "Thor",
+                           "Captain Marvel")
 }

@@ -1,11 +1,15 @@
 package com.mancel.yann.boxoffice.views.fragments
 
 import android.view.View
+import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.mancel.yann.boxoffice.R
+import com.mancel.yann.boxoffice.liveDatas.FilmLiveData
 import com.mancel.yann.boxoffice.models.Film
+import com.mancel.yann.boxoffice.repositories.OMDbRepository
+import com.mancel.yann.boxoffice.repositories.OMDbRepositoryImpl
 import com.mancel.yann.boxoffice.views.adapters.AdapterCallback
 import com.mancel.yann.boxoffice.views.adapters.FilmAdapter
 import kotlinx.android.synthetic.main.fragment_list.view.*
@@ -22,6 +26,7 @@ class ListFragment : BaseFragment(), AdapterCallback {
     // FIELDS --------------------------------------------------------------------------------------
 
     private lateinit var mAdapter: FilmAdapter
+    private lateinit var mFilmLiveData: FilmLiveData
 
     // METHODS -------------------------------------------------------------------------------------
 
@@ -33,8 +38,18 @@ class ListFragment : BaseFragment(), AdapterCallback {
         // UI
         this.configureRecyclerView()
 
-//        val films = listOf(Film("Yann"), Film("Melina"))
-//        this.mAdapter.updateData(films)
+        // Test
+        mFilmLiveData = FilmLiveData().apply {
+            observe(this@ListFragment.viewLifecycleOwner, Observer {
+                this@ListFragment.mAdapter.updateData(it)
+            })
+        }
+
+        val key = this.getString(R.string.omdb_key)
+
+        val repository: OMDbRepository = OMDbRepositoryImpl()
+
+        mFilmLiveData.getFilmsWithObservable(repository.getStreamToFetchFilms(key))
     }
 
     // -- AdapterCallback interface --
