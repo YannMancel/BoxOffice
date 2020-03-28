@@ -1,8 +1,10 @@
 package com.mancel.yann.boxoffice.views.fragments
 
+import com.bumptech.glide.Glide
 import com.mancel.yann.boxoffice.R
 import com.mancel.yann.boxoffice.models.Film
 import com.squareup.moshi.Moshi
+import kotlinx.android.synthetic.main.fragment_details.view.*
 
 /**
  * Created by Yann MANCEL on 27/03/2020.
@@ -56,6 +58,44 @@ class DetailsFragment : BaseFragment() {
      * Configures UI
      */
     private fun configureUI() {
+        this.mFilm?.let { film ->
+            // Title
+            film.title?.let { title ->
+                this.mRootView.fragment_details_title.text = title
+            }
 
+            // Image
+            film.poster?.let { poster ->
+                Glide.with(this@DetailsFragment)
+                     .load(poster)
+                     .centerCrop()
+                     .error(R.drawable.ic_close)
+                     .into(this.mRootView.fragment_details_image)
+            }
+
+            // Release
+            film.released?.let { release ->
+                this.mRootView.fragment_details_release.text = release
+            }
+
+            // Critics
+            film.metascore?.let { critics ->
+                this.mRootView.fragment_details_critics.rating = critics.toFloat() * 5.0F / 100.0F
+            }
+
+            // Audience
+            film.imdbRating?.let { audience ->
+                this.mRootView.fragment_details_audience.rating = audience.toFloat() * 5.0F / 10.0F
+            }
+
+            // Synopsis
+            film.plot?.let { synopsis ->
+                this.mRootView.fragment_details_plot.text = synopsis }
+
+            // Casting
+            film.actors?.let { casting ->
+                this.mRootView.fragment_details_actors.text = casting
+            }
+        }
     }
 }

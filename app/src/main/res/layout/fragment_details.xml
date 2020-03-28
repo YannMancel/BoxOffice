@@ -26,21 +26,155 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             tools:text="Title"
-            style="@style/TextViewStyle1"/>
+            style="@style/TextAppearance.MaterialComponents.Headline5"/>
 
         <!-- ImageView: Image of film -->
         <ImageView
             android:id="@+id/fragment_details_image"
-            android:layout_width="@dimen/size_image_item_film"
-            android:layout_height="@dimen/size_image_item_film"
+            android:layout_width="@dimen/size_image_fragment_details"
+            android:layout_height="@dimen/size_image_fragment_details"
             android:layout_marginTop="@dimen/margin_normal"
             app:layout_constraintTop_toBottomOf="@id/fragment_details_title"
-            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintBottom_toTopOf="@id/synopsis"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/release"
             android:contentDescription="@null"
             tools:srcCompat="@tools:sample/backgrounds/scenic"
             tools:scaleType="centerCrop"/>
+
+        <!-- TextView: Release -->
+        <TextView
+            android:id="@+id/release"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/margin_normal"
+            android:layout_marginEnd="@dimen/margin_normal"
+            app:layout_constraintTop_toTopOf="@id/fragment_details_image"
+            app:layout_constraintBottom_toTopOf="@id/Critics"
+            app:layout_constraintStart_toEndOf="@id/fragment_details_image"
+            app:layout_constraintEnd_toStartOf="@id/fragment_details_release"
+            app:layout_constraintHorizontal_chainStyle="spread_inside"
+            android:text="@string/release_date"
+            style="@style/TextViewStyle1"/>
+
+        <!-- TextView: Release of film -->
+        <TextView
+            android:id="@+id/fragment_details_release"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toTopOf="@id/release"
+            app:layout_constraintBottom_toBottomOf="@id/release"
+            app:layout_constraintStart_toEndOf="@id/release"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:textAlignment="textEnd"
+            tools:text="10 nov. 2010"
+            style="@style/TextAppearance.MaterialComponents.Body2"/>
+
+        <!-- TextView: Critics -->
+        <TextView
+            android:id="@+id/Critics"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/margin_normal"
+            android:layout_marginEnd="@dimen/margin_normal"
+            app:layout_constraintTop_toBottomOf="@id/release"
+            app:layout_constraintBottom_toTopOf="@id/audience"
+            app:layout_constraintStart_toEndOf="@id/fragment_details_image"
+            app:layout_constraintEnd_toStartOf="@id/fragment_details_critics"
+            app:layout_constraintHorizontal_chainStyle="spread_inside"
+            android:text="@string/critics"
+            style="@style/TextViewStyle1"/>
+
+        <!-- AppCompatRatingBar: Critics of film -->
+        <androidx.appcompat.widget.AppCompatRatingBar
+            android:id="@+id/fragment_details_critics"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toTopOf="@id/Critics"
+            app:layout_constraintBottom_toBottomOf="@id/Critics"
+            app:layout_constraintStart_toEndOf="@id/Critics"
+            app:layout_constraintEnd_toEndOf="parent"
+            style="@style/RatingBarStyle"/>
+
+        <!-- TextView: Audience -->
+        <TextView
+            android:id="@+id/audience"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/margin_normal"
+            android:layout_marginEnd="@dimen/margin_normal"
+            app:layout_constraintTop_toBottomOf="@id/Critics"
+            app:layout_constraintBottom_toBottomOf="@id/fragment_details_image"
+            app:layout_constraintStart_toEndOf="@id/fragment_details_image"
+            app:layout_constraintEnd_toStartOf="@id/fragment_details_audience"
+            app:layout_constraintHorizontal_chainStyle="spread_inside"
+            android:text="@string/audience"
+            style="@style/TextViewStyle1"/>
+
+        <!-- AppCompatRatingBar: Audience of film -->
+        <androidx.appcompat.widget.AppCompatRatingBar
+            android:id="@+id/fragment_details_audience"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toTopOf="@id/audience"
+            app:layout_constraintBottom_toBottomOf="@id/audience"
+            app:layout_constraintStart_toEndOf="@id/audience"
+            app:layout_constraintEnd_toEndOf="parent"
+            style="@style/RatingBarStyle"/>
+
+        <!-- TextView: Synopsis -->
+        <TextView
+            android:id="@+id/synopsis"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_normal"
+            app:layout_constraintTop_toBottomOf="@id/fragment_details_image"
+            app:layout_constraintBottom_toTopOf="@id/fragment_details_plot"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0"
+            android:text="@string/synopsis"
+            style="@style/TextAppearance.MaterialComponents.Headline6"/>
+
+        <!-- TextView: Plot of film -->
+        <TextView
+            android:id="@+id/fragment_details_plot"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_little"
+            app:layout_constraintTop_toBottomOf="@id/synopsis"
+            app:layout_constraintBottom_toTopOf="@id/casting"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            tools:text="Refers to the brief narrative constituting the outline of a scenario; it is a succinct summary. "
+            style="@style/TextAppearance.MaterialComponents.Body2"/>
+
+        <!-- TextView: Casting -->
+        <TextView
+            android:id="@+id/casting"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_normal"
+            app:layout_constraintTop_toBottomOf="@id/fragment_details_plot"
+            app:layout_constraintBottom_toTopOf="@id/fragment_details_actors"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0"
+            android:text="@string/casting"
+            style="@style/TextAppearance.MaterialComponents.Headline6"/>
+
+        <!-- TextView: Actors of film -->
+        <TextView
+            android:id="@+id/fragment_details_actors"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_little"
+            app:layout_constraintTop_toBottomOf="@id/casting"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            tools:text="actor 1, actor 2..."
+            style="@style/TextAppearance.MaterialComponents.Body2"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

@@ -9,4 +9,11 @@
     <!-- fragment_list.xml -->
     <string name="no_data">No data</string>
 
+    <!-- fragment_details.xml -->
+    <string name="release_date">Release Date:</string>
+    <string name="critics">Critics</string>
+    <string name="audience">Audience</string>
+    <string name="synopsis">Synopsis</string>
+    <string name="casting">Casting</string>
+
 </resources>

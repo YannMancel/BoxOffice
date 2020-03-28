@@ -4,6 +4,7 @@
 
     <!-- ImageView Size -->
     <dimen name="size_image_item_film">80dp</dimen>
+    <dimen name="size_image_fragment_details">120dp</dimen>
 
     <!-- Margin -->
     <dimen name="margin_tiny">4dp</dimen>
