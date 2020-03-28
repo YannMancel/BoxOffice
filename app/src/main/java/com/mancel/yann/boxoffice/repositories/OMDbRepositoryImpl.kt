@@ -1,5 +1,6 @@
 package com.mancel.yann.boxoffice.repositories
 
+import com.mancel.yann.boxoffice.apis.DummyBoxOffice
 import com.mancel.yann.boxoffice.apis.OMDbService
 import com.mancel.yann.boxoffice.models.Film
 import io.reactivex.Observable
@@ -34,5 +35,20 @@ class OMDbRepositoryImpl : OMDbRepository {
                                 .subscribeOn(Schedulers.io())
                                 .observeOn(AndroidSchedulers.mainThread())
                                 .timeout(10L, TimeUnit.SECONDS)
+    }
+
+    override fun getStreamToFetchFilms(
+        key: String,
+        resultType: String,
+        dataType: String,
+        plot: String
+    ): Observable<List<Film>> {
+        return Observable.just(DummyBoxOffice.filmNames)
+                         .flatMapIterable { it }
+                         .flatMap {
+                             this.getStreamToFetchFilmByTitle(it, key, resultType, dataType, plot)
+                         }
+                         .toList()
+                         .toObservable()
     }
 }

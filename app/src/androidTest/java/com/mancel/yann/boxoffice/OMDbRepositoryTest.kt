@@ -2,6 +2,7 @@ package com.mancel.yann.boxoffice
 
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.platform.app.InstrumentationRegistry
+import com.mancel.yann.boxoffice.apis.DummyBoxOffice
 import com.mancel.yann.boxoffice.models.Film
 import com.mancel.yann.boxoffice.repositories.OMDbRepository
 import com.mancel.yann.boxoffice.repositories.OMDbRepositoryImpl
@@ -51,5 +52,27 @@ class OMDbRepositoryTest {
 
         // Test: Response
         assertEquals("True", film.response)
+    }
+
+    @Test
+    fun shouldFetchAllFilms() {
+        // Creates Observable
+        val observable = this.mRepository.getStreamToFetchFilms(key = this.mKey)
+
+        // Creates Observer
+        val observer = TestObserver<List<Film>>()
+
+        // Creates Stream
+        observable.subscribeWith(observer)
+            .assertNoErrors()
+            .assertNoTimeout()
+            .awaitTerminalEvent()
+
+        // Fetches the result
+        val films = observer.values()[0]
+
+        // Test: Response
+        assertEquals(DummyBoxOffice.filmNames.size, films.size)
+        films.forEach { assertEquals("True", it.response) }
     }
 }
