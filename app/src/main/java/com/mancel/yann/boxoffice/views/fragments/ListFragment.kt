@@ -12,6 +12,7 @@ import com.mancel.yann.boxoffice.repositories.OMDbRepository
 import com.mancel.yann.boxoffice.repositories.OMDbRepositoryImpl
 import com.mancel.yann.boxoffice.views.adapters.AdapterCallback
 import com.mancel.yann.boxoffice.views.adapters.FilmAdapter
+import com.squareup.moshi.Moshi
 import kotlinx.android.synthetic.main.fragment_list.view.*
 
 /**
@@ -62,18 +63,24 @@ class ListFragment : BaseFragment(), AdapterCallback {
     }
 
     override fun onClick(v: View?) {
-        // Data from Tag
-        (v?.tag as? Film)?.title?.let { this.mCallback?.showMessage(it) }
+        // Film from Tag
+        val film = v?.tag as? Film
+
+        // Convert Film to Json
+        val json = Moshi.Builder()
+                        .build()
+                        .adapter(Film::class.java)
+                        .toJson(film)
 
         // Navigation by action (Safe Args)
-        val action = ListFragmentDirections.actionNavigationListFragmentToNavigationDetailsFragment()
+        val action = ListFragmentDirections.actionNavigationListFragmentToNavigationDetailsFragment(json)
         this.findNavController().navigate(action)
     }
 
     // -- RecyclerView --
 
     /**
-     * Configures the [RecyclerView]
+     * Configures the RecyclerView
      */
     private fun configureRecyclerView() {
         // Adapter

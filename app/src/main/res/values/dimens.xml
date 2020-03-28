@@ -13,6 +13,7 @@
     <dimen name="margin_heavy">88dp</dimen>
 
     <!-- Padding -->
+    <dimen name="padding_little">8dp</dimen>
     <dimen name="padding_normal">16dp</dimen>
 
 </resources>

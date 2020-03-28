@@ -75,8 +75,11 @@ class FilmAdapter(
                  .into(holder.itemView.item_film_image)
         }
 
-        // Name
-        film.title?.let { holder.itemView.item_film_name.text = it }
+        // Title
+        film.title?.let { holder.itemView.item_film_title.text = it }
+
+        // Director
+        film.director?.let { holder.itemView.item_film_director.text = it }
     }
 
     // -- Film --

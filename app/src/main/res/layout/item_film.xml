@@ -16,34 +16,48 @@
     <!-- ConstraintLayout -->
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:padding="@dimen/padding_little">
 
         <!-- ImageView: Image of film -->
         <ImageView
             android:id="@+id/item_film_image"
             android:layout_width="@dimen/size_image_item_film"
             android:layout_height="@dimen/size_image_item_film"
-            android:layout_margin="@dimen/margin_normal"
+            android:layout_marginEnd="@dimen/margin_normal"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toStartOf="@id/item_film_name"
+            app:layout_constraintEnd_toStartOf="@id/item_film_title"
             android:contentDescription="@null"
             tools:srcCompat="@tools:sample/backgrounds/scenic"
             tools:scaleType="centerCrop"/>
 
-        <!-- TextView: Name of film -->
+        <!-- TextView: Title of film -->
         <TextView
-            android:id="@+id/item_film_name"
+            android:id="@+id/item_film_title"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="@dimen/margin_normal"
-            app:layout_constraintTop_toTopOf="@id/item_film_image"
-            app:layout_constraintBottom_toBottomOf="@id/item_film_image"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toTopOf="@id/item_film_director"
             app:layout_constraintStart_toEndOf="@id/item_film_image"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintVertical_chainStyle="packed"
             tools:text="@tools:sample/first_names"
             style="@style/TextViewStyle1"/>
+
+        <!-- TextView: Director of film -->
+        <TextView
+            android:id="@+id/item_film_director"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_little"
+            app:layout_constraintTop_toBottomOf="@id/item_film_title"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="@id/item_film_title"
+            app:layout_constraintEnd_toEndOf="parent"
+            tools:text="@tools:sample/first_names"
+            style="@style/TextViewStyle2"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

@@ -45,4 +45,11 @@
         <item name="android:textStyle">normal</item>
     </style>
 
+    <!-- TextView style (level 2, grey, italic) -->
+    <style name="TextViewStyle2" parent="OneLineTextViewSubStyle">
+        <item name="android:textColor">@android:color/darker_gray</item>
+        <item name="android:textSize">12sp</item>
+        <item name="android:textStyle">italic</item>
+    </style>
+
 </resources>
