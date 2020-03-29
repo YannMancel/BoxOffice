@@ -1,6 +1,10 @@
 package com.mancel.yann.boxoffice
 
 import androidx.multidex.MultiDexApplication
+import com.mancel.yann.boxoffice.koin.appModule
+import org.koin.android.ext.koin.androidContext
+import org.koin.android.ext.koin.androidLogger
+import org.koin.core.context.startKoin
 
 /**
  * Created by Yann MANCEL on 27/03/2020.
@@ -13,7 +17,16 @@ class BoxOfficeApplication : MultiDexApplication() {
 
     // METHODS -------------------------------------------------------------------------------------
 
+    // -- MultiDexApplication --
+
     override fun onCreate() {
         super.onCreate()
+
+        // KOIN: Dependency injection framework
+        startKoin {
+            androidLogger()
+            androidContext(this@BoxOfficeApplication)
+            modules(appModule)
+        }
     }
 }

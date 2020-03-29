@@ -23,19 +23,15 @@
 ## Wiki
 * [Android Architecture Components](https://developer.android.com/topic/libraries/architecture/)
     * [Navigation](https://developer.android.com/guide/navigation/)
-
 * [Multidex](https://developer.android.com/studio/build/multidex.html)
-
 * [Library Moshi](https://github.com/square/moshi)
-
 * [Library Retrofit](https://github.com/square/retrofit)
 * [Library Retrofit Converter Moshi](https://github.com/square/retrofit/tree/master/retrofit-converters/moshi)
 * [Library Retrofit Adapter RxJava2](https://github.com/square/retrofit/tree/master/retrofit-adapters/rxjava2)
-
 * [Library RxAndroid](https://github.com/ReactiveX/RxAndroid)
 * [Library RxKotlin](https://github.com/ReactiveX/RxKotlin)
-
 * [Library Glide](https://github.com/bumptech/glide)
+* [Library Koin](https://github.com/InsertKoinIO/koin)
 
 
 ## Troubleshooting

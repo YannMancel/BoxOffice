@@ -1,0 +1,17 @@
+package com.mancel.yann.boxoffice.koin
+
+import com.mancel.yann.boxoffice.repositories.OMDbRepository
+import com.mancel.yann.boxoffice.repositories.OMDbRepositoryImpl
+import org.koin.dsl.module
+
+/**
+ * Created by Yann MANCEL on 29/03/2020.
+ * Name of the project: BoxOffice
+ * Name of the package: com.mancel.yann.boxoffice.koin
+ */
+
+val appModule = module {
+
+    // Repositories
+    single<OMDbRepository> { OMDbRepositoryImpl() }
+}

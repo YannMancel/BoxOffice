@@ -10,6 +10,7 @@ buildscript {
     ext.rx_kotlin_version = '2.4.0'
     ext.moshi_kotlin_version = '1.9.2'
     ext.glide_version = '4.10.0'
+    ext.koin_version = '2.1.4'
 
     repositories {
         google()
