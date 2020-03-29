@@ -3,7 +3,7 @@
 <resources>
 
     <!-- ImageView Size -->
-    <dimen name="size_image_item_film">80dp</dimen>
+    <dimen name="size_image_item_film">100dp</dimen>
     <dimen name="size_image_fragment_details">120dp</dimen>
     <dimen name="size_image_item_actor_width">110dp</dimen>
     <dimen name="size_image_item_actor_height">130dp</dimen>

@@ -17,6 +17,9 @@
     <string name="synopsis">Synopsis</string>
     <string name="casting">Casting</string>
 
+    <!-- menu_toolbar.xml -->
+    <string name="sync">Sync</string>
+
     <!-- DetailsFragment.kt -->
     <string name="your_rating">Your rating: %.1f</string>
 

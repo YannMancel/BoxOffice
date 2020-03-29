@@ -40,6 +40,8 @@ class ListFragment : BaseFragment(), AdapterCallback {
         this.configureFilmLiveData()
     }
 
+    override fun syncData() = this.mViewModel.fetchFilms(this.requireContext())
+
     // -- AdapterCallback interface --
 
     override fun onDataChanged() {

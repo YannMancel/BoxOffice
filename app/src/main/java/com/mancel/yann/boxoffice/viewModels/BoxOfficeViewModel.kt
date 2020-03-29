@@ -31,17 +31,27 @@ class BoxOfficeViewModel(
      * @return a [LiveData] of [List] of [Film]
      */
     fun getFilms(context: Context): LiveData<List<Film>> {
-
         if (this.mFilms == null) {
             this.mFilms = FilmLiveData()
         }
 
-        // key
-        val key = context.getString(R.string.omdb_key)
-
         // Fetches data
-        this.mFilms!!.getFilmsWithObservable(this.mOMDbRepository.getStreamToFetchFilms(key))
+        this.fetchFilms(context)
 
         return this.mFilms!!
+    }
+
+    /**
+     * Fetches the films from [FilmLiveData]
+     * @param context a [Context]
+     */
+    fun fetchFilms(context: Context) {
+        this.mFilms?.let {
+            // key
+            val key = context.getString(R.string.omdb_key)
+
+            // Fetches data
+            it.getFilmsWithObservable(this.mOMDbRepository.getStreamToFetchFilms(key))
+        }
     }
 }

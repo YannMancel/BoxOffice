@@ -65,4 +65,11 @@ abstract class BaseFragment : Fragment() {
 
         return this.mRootView
     }
+
+    // -- Sync Data --
+
+    /**
+     * Method to override to perform action after the user's click on toolbar
+     */
+    open fun syncData() { /* Do nothing */}
 }
