@@ -14,6 +14,7 @@ import com.mancel.yann.boxoffice.views.adapters.AdapterCallback
 import com.mancel.yann.boxoffice.views.adapters.FilmAdapter
 import com.squareup.moshi.Moshi
 import kotlinx.android.synthetic.main.fragment_list.view.*
+import java.util.*
 
 /**
  * Created by Yann MANCEL on 27/03/2020.
@@ -42,6 +43,10 @@ class ListFragment : BaseFragment(), AdapterCallback {
         // Test
         mFilmLiveData = FilmLiveData().apply {
             observe(this@ListFragment.viewLifecycleOwner, Observer {
+
+                // Sorts the list on its title from A to Z
+                Collections.sort(it, Film.AZTitleComparator())
+
                 this@ListFragment.mAdapter.updateData(it)
             })
         }

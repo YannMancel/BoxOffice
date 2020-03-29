@@ -60,4 +60,20 @@ data class Film (
     var website: String? = null,
     @Json(name = "Response")
     var response: String? = null
-)
+) {
+
+    // NESTED CLASSES ------------------------------------------------------------------------------
+
+    /**
+     * A [Comparator] of [Film] subclass.
+     */
+    class AZTitleComparator : Comparator<Film> {
+        override fun compare(left: Film?, right: Film?): Int {
+            // Comparison on the film's title
+            val titleLeft = left?.title ?: ""
+            val titleRight = right?.title ?: ""
+
+            return titleLeft.compareTo(titleRight, ignoreCase = true)
+        }
+    }
+}
