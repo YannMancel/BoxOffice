@@ -52,6 +52,12 @@
         <item name="android:textStyle">italic</item>
     </style>
 
+    <!-- TextView style (level 1, white, normal) -->
+    <style name="TextViewStyle3" parent="@style/TextAppearance.MaterialComponents.Body2">
+        <item name="android:textColor">@android:color/white</item>
+        <item name="android:gravity">center</item>
+    </style>
+
     <!-- *********************************** RatingBar ***************************************** -->
 
     <!-- RatingBar style (small) -->

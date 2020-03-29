@@ -62,8 +62,8 @@ class FilmAdapter(
 
     /**
      * Configures the design of each item
-     * @param holder a [FilmViewHolder] that corresponds to the item
-     * @param film a [Film]
+     * @param holder    a [FilmViewHolder] that corresponds to the item
+     * @param film      a [Film]
      */
     private fun configureDesign(holder: FilmViewHolder, film: Film) {
         // Image

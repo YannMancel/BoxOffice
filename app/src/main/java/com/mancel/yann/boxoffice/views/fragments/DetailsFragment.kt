@@ -1,9 +1,13 @@
 package com.mancel.yann.boxoffice.views.fragments
 
+import androidx.recyclerview.widget.DividerItemDecoration
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
 import com.mancel.yann.boxoffice.R
 import com.mancel.yann.boxoffice.models.Film
+import com.mancel.yann.boxoffice.utils.ActorTools
 import com.mancel.yann.boxoffice.utils.SaveTools
+import com.mancel.yann.boxoffice.views.adapters.ActorAdapter
 import com.squareup.moshi.Moshi
 import kotlinx.android.synthetic.main.fragment_details.view.*
 
@@ -23,6 +27,7 @@ class DetailsFragment : BaseFragment() {
     }
 
     private var mFilm: Film? = null
+    private lateinit var mAdapter: ActorAdapter
 
     // METHODS -------------------------------------------------------------------------------------
 
@@ -38,6 +43,7 @@ class DetailsFragment : BaseFragment() {
         this.fetchMyReviewFromSharedPreferences()
 
         // UI
+        this.configureRecyclerView()
         this.configureUI()
     }
 
@@ -65,6 +71,33 @@ class DetailsFragment : BaseFragment() {
         this.mFilm?.imdbID?.let { id ->
             this.mRootView.fragment_details_my_review.rating =
                 SaveTools.fetchFloatFromSharedPreferences(this.requireContext(), id)
+        }
+    }
+
+    // -- RecyclerView --
+
+    /**
+     * Configures the RecyclerView
+     */
+    private fun configureRecyclerView() {
+        // Adapter
+        this.mAdapter = ActorAdapter(mCallback = null)
+
+        // LayoutManager
+        val viewManager = LinearLayoutManager(this.requireContext(),
+                                              LinearLayoutManager.HORIZONTAL,
+                                              false)
+
+        // Divider
+        val divider = DividerItemDecoration(this.requireContext(),
+                                            DividerItemDecoration.HORIZONTAL)
+
+        // RecyclerView
+        with(this.mRootView.fragment_details_casting) {
+            setHasFixedSize(true)
+            layoutManager = viewManager
+            addItemDecoration(divider)
+            adapter = mAdapter
         }
     }
 
@@ -120,7 +153,7 @@ class DetailsFragment : BaseFragment() {
 
             // Casting
             film.actors?.let { casting ->
-                this.mRootView.fragment_details_actors.text = casting
+                this.mAdapter.updateData(ActorTools.getActors(casting))
             }
         }
     }
