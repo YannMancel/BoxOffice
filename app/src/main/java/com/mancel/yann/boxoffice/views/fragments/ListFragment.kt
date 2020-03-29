@@ -6,10 +6,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.mancel.yann.boxoffice.R
-import com.mancel.yann.boxoffice.liveDatas.FilmLiveData
 import com.mancel.yann.boxoffice.models.Film
-import com.mancel.yann.boxoffice.repositories.OMDbRepository
-import com.mancel.yann.boxoffice.repositories.OMDbRepositoryImpl
 import com.mancel.yann.boxoffice.views.adapters.AdapterCallback
 import com.mancel.yann.boxoffice.views.adapters.FilmAdapter
 import com.squareup.moshi.Moshi
@@ -28,7 +25,6 @@ class ListFragment : BaseFragment(), AdapterCallback {
     // FIELDS --------------------------------------------------------------------------------------
 
     private lateinit var mAdapter: FilmAdapter
-    private lateinit var mFilmLiveData: FilmLiveData
 
     // METHODS -------------------------------------------------------------------------------------
 
@@ -40,22 +36,8 @@ class ListFragment : BaseFragment(), AdapterCallback {
         // UI
         this.configureRecyclerView()
 
-        // Test
-        mFilmLiveData = FilmLiveData().apply {
-            observe(this@ListFragment.viewLifecycleOwner, Observer {
-
-                // Sorts the list on its title from A to Z
-                Collections.sort(it, Film.AZTitleComparator())
-
-                this@ListFragment.mAdapter.updateData(it)
-            })
-        }
-
-        val key = this.getString(R.string.omdb_key)
-
-        val repository: OMDbRepository = OMDbRepositoryImpl()
-
-        mFilmLiveData.getFilmsWithObservable(repository.getStreamToFetchFilms(key))
+        // LiveData
+        this.configureFilmLiveData()
     }
 
     // -- AdapterCallback interface --
@@ -105,5 +87,20 @@ class ListFragment : BaseFragment(), AdapterCallback {
             addItemDecoration(divider)
             adapter = mAdapter
         }
+    }
+
+    // -- LiveData --
+
+    /**
+     * Configures the LiveData
+     */
+    private fun configureFilmLiveData() {
+        this.mViewModel.getFilms(this.requireContext())
+            .observe(this.viewLifecycleOwner, Observer {
+                // Sorts the list on its title from A to Z
+                Collections.sort(it, Film.AZTitleComparator())
+                
+                this.mAdapter.updateData(it)
+            })
     }
 }

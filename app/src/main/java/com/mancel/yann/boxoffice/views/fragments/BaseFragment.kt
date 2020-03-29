@@ -7,6 +7,8 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.annotation.LayoutRes
 import androidx.fragment.app.Fragment
+import com.mancel.yann.boxoffice.viewModels.BoxOfficeViewModel
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 /**
  * Created by Yann MANCEL on 27/03/2020.
@@ -21,6 +23,7 @@ abstract class BaseFragment : Fragment() {
 
     protected lateinit var mRootView: View
     protected var mCallback: FragmentCallback? = null
+    protected val mViewModel: BoxOfficeViewModel by viewModel()
 
     // METHODS -------------------------------------------------------------------------------------
 

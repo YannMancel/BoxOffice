@@ -21,9 +21,13 @@
 
 
 ## Wiki
-* [Android Architecture Components](https://developer.android.com/topic/libraries/architecture/)
+* [Android Jetpack](https://developer.android.com/jetpack)
+  * [Architecture Components](https://developer.android.com/topic/libraries/architecture/)
+    * [LiveData](https://developer.android.com/topic/libraries/architecture/livedata)
+    * [ViewModel](https://developer.android.com/topic/libraries/architecture/viewmodel)
     * [Navigation](https://developer.android.com/guide/navigation/)
-* [Multidex](https://developer.android.com/studio/build/multidex.html)
+  * [Foundation Multidex](https://developer.android.com/studio/build/multidex.html)
+* [Library Material Components](https://github.com/material-components/material-components-android)
 * [Library Moshi](https://github.com/square/moshi)
 * [Library Retrofit](https://github.com/square/retrofit)
 * [Library Retrofit Converter Moshi](https://github.com/square/retrofit/tree/master/retrofit-converters/moshi)

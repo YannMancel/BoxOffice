@@ -2,6 +2,8 @@ package com.mancel.yann.boxoffice.koin
 
 import com.mancel.yann.boxoffice.repositories.OMDbRepository
 import com.mancel.yann.boxoffice.repositories.OMDbRepositoryImpl
+import com.mancel.yann.boxoffice.viewModels.BoxOfficeViewModel
+import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.dsl.module
 
 /**
@@ -14,4 +16,7 @@ val appModule = module {
 
     // Repositories
     single<OMDbRepository> { OMDbRepositoryImpl() }
+
+    // ViewModel
+    viewModel { BoxOfficeViewModel(get()) }
 }
