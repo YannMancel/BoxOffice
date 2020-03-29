@@ -25,7 +25,7 @@
             app:layout_constraintBottom_toTopOf="@id/activity_main_Toolbar"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            style="@style/ToolbarStyle"/>
+            android:theme="@style/ToolbarStyle"/>
 
         <!-- fragment: NavHostFragment -->
         <fragment

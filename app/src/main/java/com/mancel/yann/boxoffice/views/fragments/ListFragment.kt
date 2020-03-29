@@ -42,6 +42,10 @@ class ListFragment : BaseFragment(), AdapterCallback {
 
     override fun syncData() = this.mViewModel.fetchFilms(this.requireContext())
 
+    override fun searchData(query: String) {
+        this.mCallback?.showMessage(query)
+    }
+
     // -- AdapterCallback interface --
 
     override fun onDataChanged() {

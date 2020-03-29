@@ -69,7 +69,14 @@ abstract class BaseFragment : Fragment() {
     // -- Sync Data --
 
     /**
-     * Method to override to perform action after the user's click on toolbar
+     * Method to override to perform an action after the user's click on toolbar
      */
     open fun syncData() { /* Do nothing */}
+
+    // -- Search Data --
+
+    /**
+     * Method to override to perform an action after the user's click on toolbar
+     */
+    open fun searchData(query: String) { /* Do nothing */}
 }
