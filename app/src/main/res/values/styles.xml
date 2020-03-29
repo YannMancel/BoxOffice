@@ -54,11 +54,15 @@
 
     <!-- *********************************** RatingBar ***************************************** -->
 
-    <!-- RatingBar style -->
-    <style name="RatingBarStyle" parent="Widget.AppCompat.RatingBar.Small">
+    <!-- RatingBar style (small) -->
+    <style name="RatingBarStyle1" parent="Widget.AppCompat.RatingBar.Small">
         <item name="android:isIndicator">true</item>
         <item name="android:numStars">@integer/max_stars_rating_bar</item>
-        <item name="android:rating">@integer/max_stars_rating_bar</item>
+    </style>
+
+    <!-- RatingBar style (normal) -->
+    <style name="RatingBarStyle2" parent="Widget.AppCompat.RatingBar">
+        <item name="android:numStars">@integer/max_stars_rating_bar</item>
     </style>
 
 </resources>

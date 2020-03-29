@@ -3,6 +3,7 @@ package com.mancel.yann.boxoffice.views.fragments
 import com.bumptech.glide.Glide
 import com.mancel.yann.boxoffice.R
 import com.mancel.yann.boxoffice.models.Film
+import com.mancel.yann.boxoffice.utils.SaveTools
 import com.squareup.moshi.Moshi
 import kotlinx.android.synthetic.main.fragment_details.view.*
 
@@ -33,6 +34,9 @@ class DetailsFragment : BaseFragment() {
         // Film
         this.fetchFilmFromArgument()
 
+        // SharedPreferences
+        this.fetchMyReviewFromSharedPreferences()
+
         // UI
         this.configureUI()
     }
@@ -49,6 +53,18 @@ class DetailsFragment : BaseFragment() {
                               .build()
                               .adapter(Film::class.java)
                               .fromJson(it)
+        }
+    }
+
+    // -- My review --
+
+    /**
+     * Fetches the user's rating from SharedPreferences
+     */
+    private fun fetchMyReviewFromSharedPreferences() {
+        this.mFilm?.imdbID?.let { id ->
+            this.mRootView.fragment_details_my_review.rating =
+                SaveTools.fetchFloatFromSharedPreferences(this.requireContext(), id)
         }
     }
 
@@ -86,6 +102,16 @@ class DetailsFragment : BaseFragment() {
             // Audience
             film.imdbRating?.let { audience ->
                 this.mRootView.fragment_details_audience.rating = audience.toFloat() * 5.0F / 10.0F
+            }
+
+            // My preview
+            film.imdbID?.let { id ->
+                this.mRootView.fragment_details_my_review.setOnRatingBarChangeListener { _, rating, _ ->
+                    // Rating into SharedPreferences
+                    SaveTools.saveFloatIntoSharedPreferences(this.requireContext(), id, rating)
+
+                    this.mCallback?.showMessage(this.getString(R.string.your_rating, rating))
+                }
             }
 
             // Synopsis
