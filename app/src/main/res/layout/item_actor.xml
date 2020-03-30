@@ -52,7 +52,7 @@
             app:layout_constraintBottom_toBottomOf="@id/filter"
             app:layout_constraintStart_toStartOf="@id/item_actor_image"
             app:layout_constraintEnd_toEndOf="@id/item_actor_image"
-            style="@style/TextViewStyle3"
+            style="@style/TextViewStyle"
             tools:text="@tools:sample/full_names"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>

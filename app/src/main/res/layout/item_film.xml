@@ -44,7 +44,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintVertical_chainStyle="packed"
             tools:text="@tools:sample/first_names"
-            style="@style/TextViewStyle1"/>
+            style="@style/TextAppearance.MaterialComponents.Subtitle1"/>
 
         <!-- TextView: Director of film -->
         <TextView
@@ -57,7 +57,7 @@
             app:layout_constraintStart_toStartOf="@id/item_film_title"
             app:layout_constraintEnd_toEndOf="parent"
             tools:text="@tools:sample/first_names"
-            style="@style/TextViewStyle2"/>
+            style="@style/TextAppearance.MaterialComponents.Caption"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

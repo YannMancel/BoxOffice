@@ -33,6 +33,23 @@ object SaveTools {
     }
 
     /**
+     * Saves a [String] thanks to SharedPreferences
+     * @param context   a [Context]
+     * @param key       a [String] that contains the key
+     * @param value     a [String] that contains the value
+     */
+    fun saveStringIntoSharedPreferences(
+        context: Context,
+        key: String,
+        value: String
+    ) {
+        context.getSharedPreferences(SAVE_FILE_NAME, Context.MODE_PRIVATE)
+               .edit()
+               .putString(key, value)
+               .apply()
+    }
+
+    /**
      * Fetches a [Float] from SharedPreferences
      * @param context   a [Context]
      * @param key       a [String] that contains the key
@@ -44,5 +61,19 @@ object SaveTools {
     ): Float {
         return context.getSharedPreferences(SAVE_FILE_NAME, Context.MODE_PRIVATE)
                       .getFloat(key, 0.0F)
+    }
+
+    /**
+     * Fetches a [String] from SharedPreferences
+     * @param context   a [Context]
+     * @param key       a [String] that contains the key
+     * @return a [String] that contains the value
+     */
+    fun fetchStringFromSharedPreferences(
+        context: Context,
+        key: String
+    ): String {
+        return context.getSharedPreferences(SAVE_FILE_NAME, Context.MODE_PRIVATE)
+                      .getString(key, "")!!
     }
 }

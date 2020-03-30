@@ -55,7 +55,7 @@
             app:layout_constraintEnd_toStartOf="@id/fragment_details_release"
             app:layout_constraintHorizontal_chainStyle="spread_inside"
             android:text="@string/release_date"
-            style="@style/TextViewStyle1"/>
+            style="@style/TextAppearance.MaterialComponents.Body1"/>
 
         <!-- TextView: Release of film -->
         <TextView
@@ -83,7 +83,7 @@
             app:layout_constraintEnd_toStartOf="@id/fragment_details_critics"
             app:layout_constraintHorizontal_chainStyle="spread_inside"
             android:text="@string/critics"
-            style="@style/TextViewStyle1"/>
+            style="@style/TextAppearance.MaterialComponents.Body1"/>
 
         <!-- AppCompatRatingBar: Critics of film -->
         <androidx.appcompat.widget.AppCompatRatingBar
@@ -109,7 +109,7 @@
             app:layout_constraintEnd_toStartOf="@id/fragment_details_audience"
             app:layout_constraintHorizontal_chainStyle="spread_inside"
             android:text="@string/audience"
-            style="@style/TextViewStyle1"/>
+            style="@style/TextAppearance.MaterialComponents.Body1"/>
 
         <!-- AppCompatRatingBar: Audience of film -->
         <androidx.appcompat.widget.AppCompatRatingBar
@@ -129,24 +129,48 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/margin_normal"
             app:layout_constraintTop_toBottomOf="@id/fragment_details_image"
-            app:layout_constraintBottom_toTopOf="@id/fragment_details_my_review"
+            app:layout_constraintBottom_toTopOf="@id/fragment_details_my_review_rate"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0"
             android:text="@string/my_review"
             style="@style/TextAppearance.MaterialComponents.Headline6"/>
 
-        <!-- AppCompatRatingBar: My review of film -->
+        <!-- AppCompatRatingBar: My rate of review of film -->
         <androidx.appcompat.widget.AppCompatRatingBar
-            android:id="@+id/fragment_details_my_review"
+            android:id="@+id/fragment_details_my_review_rate"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/margin_little"
             app:layout_constraintTop_toBottomOf="@id/my_review"
-            app:layout_constraintBottom_toTopOf="@id/synopsis"
+            app:layout_constraintBottom_toTopOf="@id/fragment_details_my_review_text"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             style="@style/RatingBarStyle2"/>
+
+        <!-- TextInputLayout: My text of review of film -->
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/fragment_details_my_review_text"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_little"
+            app:layout_constraintTop_toBottomOf="@id/fragment_details_my_review_rate"
+            app:layout_constraintBottom_toTopOf="@id/synopsis"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:hintEnabled="true"
+            app:endIconMode="clear_text"
+            app:boxBackgroundColor="@android:color/transparent"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+
+            <!-- TextInputEditText: My text of review of film -->
+            <com.google.android.material.textfield.TextInputEditText
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:hint="@string/my_review"
+                android:inputType="text"/>
+
+        </com.google.android.material.textfield.TextInputLayout>
 
         <!-- TextView: Synopsis -->
         <TextView
@@ -154,7 +178,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/margin_little"
-            app:layout_constraintTop_toBottomOf="@id/fragment_details_my_review"
+            app:layout_constraintTop_toBottomOf="@id/fragment_details_my_review_text"
             app:layout_constraintBottom_toTopOf="@id/fragment_details_plot"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"

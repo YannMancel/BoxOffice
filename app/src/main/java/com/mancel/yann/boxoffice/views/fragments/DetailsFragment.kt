@@ -1,5 +1,7 @@
 package com.mancel.yann.boxoffice.views.fragments
 
+import android.text.Editable
+import android.text.TextWatcher
 import android.view.View
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
@@ -105,8 +107,13 @@ class DetailsFragment : BaseFragment(), AdapterCallback {
      */
     private fun fetchMyReviewFromSharedPreferences() {
         this.mFilm?.imdbID?.let { id ->
-            this.mRootView.fragment_details_my_review.rating =
-                SaveTools.fetchFloatFromSharedPreferences(this.requireContext(), id)
+            this.mRootView.fragment_details_my_review_rate.rating =
+                SaveTools.fetchFloatFromSharedPreferences(this.requireContext(), key = "$id-rate")
+
+            this.mRootView.fragment_details_my_review_text.editText?.text?.clear()
+            this.mRootView.fragment_details_my_review_text.editText?.text?.append(
+                SaveTools.fetchStringFromSharedPreferences(this.requireContext(), key = "$id-text")
+            )
         }
     }
 
@@ -200,12 +207,44 @@ class DetailsFragment : BaseFragment(), AdapterCallback {
 
             // My preview
             film.imdbID?.let { id ->
-                this.mRootView.fragment_details_my_review.setOnRatingBarChangeListener { _, rating, _ ->
+                this.mRootView.fragment_details_my_review_rate.setOnRatingBarChangeListener { _, rating, _ ->
                     // Rating into SharedPreferences
-                    SaveTools.saveFloatIntoSharedPreferences(this.requireContext(), id, rating)
+                    SaveTools.saveFloatIntoSharedPreferences(
+                        this.requireContext(),
+                        key = "$id-rate",
+                        value = rating
+                    )
 
                     this.mCallback?.showMessage(this.getString(R.string.your_rating, rating))
                 }
+
+                this.mRootView.fragment_details_my_review_text.editText?.addTextChangedListener(
+                    object : TextWatcher {
+
+                        override fun beforeTextChanged(
+                            s: CharSequence?,
+                            start: Int,
+                            count: Int,
+                            after: Int
+                        ) { /* Do nothing */ }
+
+                        override fun onTextChanged(
+                            s: CharSequence?,
+                            start: Int,
+                            before: Int,
+                            count: Int
+                        ) { /* Do nothing */ }
+
+                        override fun afterTextChanged(s: Editable?) {
+                            // Rating into SharedPreferences
+                            SaveTools.saveStringIntoSharedPreferences(
+                                this@DetailsFragment.requireContext(),
+                                key = "$id-text",
+                                value = s.toString()
+                            )
+                        }
+                    }
+                )
             }
 
             // Synopsis

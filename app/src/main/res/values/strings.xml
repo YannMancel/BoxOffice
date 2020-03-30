@@ -23,9 +23,6 @@
     <string name="sync">Sync</string>
     <string name="search">Search</string>
 
-    <!-- searchable.xml -->
-    <string name="search_hint">Search</string>
-
     <!-- DetailsFragment.kt -->
     <string name="your_rating">Your rating: %.1f</string>
 
