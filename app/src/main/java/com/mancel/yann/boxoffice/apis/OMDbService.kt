@@ -19,7 +19,7 @@ interface OMDbService {
 
     companion object {
 
-        private const val baseURL = "http://www.omdbapi.com"
+        private const val baseURL = "https://www.omdbapi.com"
 
         val retrofit: Retrofit = Retrofit.Builder()
                                          .baseUrl(baseURL)
