@@ -78,5 +78,5 @@ abstract class BaseFragment : Fragment() {
     /**
      * Method to override to perform an action after the user's click on toolbar
      */
-    open fun searchData(query: String) { /* Do nothing */}
+    open fun searchData(newText: String) { /* Do nothing */}
 }

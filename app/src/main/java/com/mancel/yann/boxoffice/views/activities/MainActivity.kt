@@ -2,7 +2,6 @@ package com.mancel.yann.boxoffice.views.activities
 
 import android.app.SearchManager
 import android.content.Context
-import android.content.Intent
 import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
@@ -29,6 +28,7 @@ class MainActivity : BaseActivity(), FragmentCallback {
     // FIELDS --------------------------------------------------------------------------------------
 
     private val mNavController by lazy { this.findNavController(R.id.activity_main_NavHostFragment) }
+    private lateinit var mSearchView: SearchView
 
     // METHODS -------------------------------------------------------------------------------------
 
@@ -41,9 +41,6 @@ class MainActivity : BaseActivity(), FragmentCallback {
     override fun configureDesign() {
         // UI
         this.configureToolbar()
-
-        // Search item from Toolbar
-        this.handleIntentFromSearchItemOfToolbar(this.intent)
 
         // Navigation
         this.configureFragmentNavigation()
@@ -76,12 +73,6 @@ class MainActivity : BaseActivity(), FragmentCallback {
 
             else -> super.onOptionsItemSelected(item)
         }
-    }
-
-    override fun onNewIntent(intent: Intent?) {
-        super.onNewIntent(intent)
-        this.intent = intent
-        this.handleIntentFromSearchItemOfToolbar(intent!!)
     }
 
     // -- FragmentCallback interface --
@@ -129,27 +120,31 @@ class MainActivity : BaseActivity(), FragmentCallback {
         // Associate searchable configuration with the SearchView
         val searchManager = this.getSystemService(Context.SEARCH_SERVICE) as SearchManager
 
-        (menu!!.findItem(R.id.toolbar_menu_search).actionView as SearchView).apply {
+        this.mSearchView = (menu!!.findItem(R.id.toolbar_menu_search).actionView as SearchView).apply {
             setSearchableInfo(searchManager.getSearchableInfo(componentName))
-        }
-    }
 
-    /**
-     * Handles the [Intent] from Search item of [Toolbar]
-     */
-    private fun handleIntentFromSearchItemOfToolbar(intent: Intent) {
-        if (Intent.ACTION_SEARCH == intent.action) {
-            intent.getStringExtra(SearchManager.QUERY)?.also { query ->
-                // Call the searchData method of current Fragment
-                val fragment = this.supportFragmentManager
-                                   .findFragmentById(R.id.activity_main_NavHostFragment)!!
-                                   .childFragmentManager
-                                   .fragments[0]
+            setOnQueryTextListener(object: SearchView.OnQueryTextListener {
 
-                if (fragment is BaseFragment) {
-                    fragment.searchData(query)
+                override fun onQueryTextSubmit(query: String?): Boolean {
+                    return false
                 }
-            }
+
+                override fun onQueryTextChange(newText: String?): Boolean {
+                    // Call the searchData method of current Fragment
+                    newText?.let {
+                        val fragment = this@MainActivity.supportFragmentManager
+                                                        .findFragmentById(R.id.activity_main_NavHostFragment)!!
+                                                        .childFragmentManager
+                                                        .fragments[0]
+
+                        if (fragment is BaseFragment) {
+                            fragment.searchData(it)
+                        }
+                    }
+
+                    return false
+                }
+            })
         }
     }
 

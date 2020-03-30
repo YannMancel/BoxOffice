@@ -3,6 +3,8 @@ package com.mancel.yann.boxoffice.views.adapters
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Filter
+import android.widget.Filterable
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
@@ -17,15 +19,55 @@ import java.lang.ref.WeakReference
  * Name of the project: BoxOffice
  * Name of the package: com.mancel.yann.boxoffice.views.adapters
  *
- * A [RecyclerView.Adapter] subclass.
+ * A [RecyclerView.Adapter] subclass which implements [Filterable].
  */
 class FilmAdapter(
     private val mCallback: AdapterCallback? = null
-) : RecyclerView.Adapter<FilmAdapter.FilmViewHolder>() {
+) : RecyclerView.Adapter<FilmAdapter.FilmViewHolder>(), Filterable {
+
+    // ENUMS ---------------------------------------------------------------------------------------
+
+    enum class DisplayMode {NORMAL_MODE, FILTER_MODE}
 
     // FIELDS --------------------------------------------------------------------------------------
 
     private val mFilms = mutableListOf<Film>()
+    private val mFilmsAll = mutableListOf<Film>()
+
+    private val mFilter = object : Filter() {
+
+        // Run in Background Thread
+        override fun performFiltering(constraint: CharSequence?): FilterResults {
+            val filteredFilms = mutableListOf<Film>()
+
+            constraint?.let { charSequence ->
+                if (charSequence.toString().isEmpty()) {
+                    filteredFilms.addAll(this@FilmAdapter.mFilmsAll)
+                }
+                else {
+                    this@FilmAdapter.mFilmsAll.forEach { film ->
+                        film.title?.let { title ->
+                            if (title.contains(charSequence.toString(), ignoreCase = true)) {
+                                filteredFilms.add(film)
+                            }
+                        }
+                    }
+                }
+            }
+
+            return FilterResults().apply {
+                values = filteredFilms
+            }
+        }
+
+        // Run in UI Thread
+        override fun publishResults(constraint: CharSequence?, results: FilterResults?) {
+            results?.let {
+                val filteredFilms = (it.values as List<*>).filterIsInstance<Film>()
+                this@FilmAdapter.updateData(filteredFilms, DisplayMode.FILTER_MODE)
+            }
+        }
+    }
 
     // METHODS -------------------------------------------------------------------------------------
 
@@ -58,6 +100,10 @@ class FilmAdapter(
 
     override fun getItemCount(): Int = this.mFilms.size
 
+    // -- Filterable interface --
+
+    override fun getFilter(): Filter = this.mFilter
+
     // -- Design item --
 
     /**
@@ -86,9 +132,10 @@ class FilmAdapter(
 
     /**
      * Updates data of [FilmAdapter]
-     * @param newFilms a [List] of [Film]
+     * @param newFilms      a [List] of [Film]
+     * @param displayMode   a [DisplayMode]
      */
-    fun updateData(newFilms: List<Film>) {
+    fun updateData(newFilms: List<Film>, displayMode: DisplayMode = DisplayMode.NORMAL_MODE) {
         // Optimizes the performances of RecyclerView
         val diffCallback  = FilmDiffCallback(this.mFilms, newFilms)
         val diffResult  = DiffUtil.calculateDiff(diffCallback )
@@ -96,6 +143,11 @@ class FilmAdapter(
         // New data
         this.mFilms.clear()
         this.mFilms.addAll(newFilms)
+
+        if (displayMode == DisplayMode.NORMAL_MODE) {
+            this.mFilmsAll.clear()
+            this.mFilmsAll.addAll(this.mFilms)
+        }
 
         // Notifies adapter
         diffResult.dispatchUpdatesTo(this@FilmAdapter)

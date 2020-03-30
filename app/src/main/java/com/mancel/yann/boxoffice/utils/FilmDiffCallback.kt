@@ -23,12 +23,10 @@ class FilmDiffCallback(
 
     override fun areItemsTheSame(oldItemPosition: Int, newItemPosition: Int): Boolean {
         // Comparison based on Id:
+        val oldId = this.mOldList[oldItemPosition].imdbID
+        val newId = this.mNewList[newItemPosition].imdbID
 
-//        val oldId = this.mOldList[oldItemPosition].mId
-//        val newId = this.mNewList[newItemPosition].mId
-//
-//        return oldId == newId
-        return false
+        return oldId == newId
     }
 
     override fun areContentsTheSame(oldItemPosition: Int, newItemPosition: Int): Boolean {
