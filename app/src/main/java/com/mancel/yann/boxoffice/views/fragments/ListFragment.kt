@@ -35,6 +35,7 @@ class ListFragment : BaseFragment(), AdapterCallback {
     override fun configureDesign() {
         // UI
         this.configureRecyclerView()
+        this.configureSwipeRefreshLayout()
 
         // LiveData
         this.configureFilmLiveData()
@@ -93,6 +94,17 @@ class ListFragment : BaseFragment(), AdapterCallback {
         }
     }
 
+    // -- SwipeRefreshLayout --
+
+    /**
+     * Configure the SwipeRefreshLayout
+     */
+    private fun configureSwipeRefreshLayout() {
+        this.mRootView.fragment_list_SwipeRefreshLayout.setOnRefreshListener {
+            this.mViewModel.fetchFilms(this.requireContext())
+        }
+    }
+
     // -- LiveData --
 
     /**
@@ -101,6 +113,11 @@ class ListFragment : BaseFragment(), AdapterCallback {
     private fun configureFilmLiveData() {
         this.mViewModel.getFilms(this.requireContext())
             .observe(this.viewLifecycleOwner, Observer {
+                // Stops the animation of SwipeRefreshLayout
+                if (this.mRootView.fragment_list_SwipeRefreshLayout.isRefreshing) {
+                    this.mRootView.fragment_list_SwipeRefreshLayout.isRefreshing = false
+                }
+
                 // Sorts the list on its title from A to Z
                 Collections.sort(it, Film.AZTitleComparator())
                 
