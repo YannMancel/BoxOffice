@@ -6,7 +6,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
 
-    android:id="@+id/item_actor_CardView"
+    android:id="@+id/item_poster_film_CardView"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:clickable="true"
@@ -18,9 +18,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content">
 
-        <!-- ImageView: Image of actor -->
+        <!-- ImageView: Image of Film -->
         <ImageView
-            android:id="@+id/item_actor_image"
+            android:id="@+id/item_poster_film_image"
             android:layout_width="@dimen/size_image_item_actor_width"
             android:layout_height="@dimen/size_image_item_actor_height"
             app:layout_constraintTop_toTopOf="parent"
@@ -28,7 +28,8 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             android:contentDescription="@null"
-            android:src="@drawable/ic_person"/>
+            tools:srcCompat="@tools:sample/backgrounds/scenic"
+            tools:scaleType="centerCrop"/>
 
         <!-- ImageView: Filter -->
         <ImageView
@@ -36,22 +37,22 @@
             android:layout_width="0dp"
             android:layout_height="@dimen/filter_actor_height"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="@id/item_actor_image"
-            app:layout_constraintEnd_toEndOf="@id/item_actor_image"
+            app:layout_constraintStart_toStartOf="@id/item_poster_film_image"
+            app:layout_constraintEnd_toEndOf="@id/item_poster_film_image"
             android:contentDescription="@null"
             android:background="@android:color/black"
             android:alpha="@integer/opacity_filter"/>
 
-        <!-- TextView: Full name of actor -->
+        <!-- TextView: Title of film -->
         <TextView
-            android:id="@+id/item_actor_full_name"
+            android:id="@+id/item_poster_film_title"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/margin_normal"
             app:layout_constraintTop_toTopOf="@id/filter"
             app:layout_constraintBottom_toBottomOf="@id/filter"
-            app:layout_constraintStart_toStartOf="@id/item_actor_image"
-            app:layout_constraintEnd_toEndOf="@id/item_actor_image"
+            app:layout_constraintStart_toStartOf="@id/item_poster_film_image"
+            app:layout_constraintEnd_toEndOf="@id/item_poster_film_image"
             style="@style/TextViewStyle3"
             tools:text="@tools:sample/full_names"/>
 

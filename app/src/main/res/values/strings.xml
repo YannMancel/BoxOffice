@@ -16,6 +16,8 @@
     <string name="my_review">My review</string>
     <string name="synopsis">Synopsis</string>
     <string name="casting">Casting</string>
+    <string name="similar_movies">Similar Movies</string>
+    <string name="no_similar_movies">No similar movies</string>
 
     <!-- menu_toolbar.xml -->
     <string name="sync">Sync</string>

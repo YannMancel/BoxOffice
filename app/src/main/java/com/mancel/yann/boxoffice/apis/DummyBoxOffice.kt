@@ -13,5 +13,7 @@ object DummyBoxOffice {
                            "Black Panther",
                            "Captain America: Civil War",
                            "Thor",
-                           "Captain Marvel")
+                           "Captain Marvel",
+                           "It",
+                           "Rec")
 }

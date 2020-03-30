@@ -196,12 +196,53 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/margin_little"
             app:layout_constraintTop_toBottomOf="@id/casting"
-            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintBottom_toTopOf="@id/similar_movies"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             tools:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             tools:orientation="horizontal"
             tools:listitem="@layout/item_actor"/>
+
+        <!-- TextView: Similar movies -->
+        <TextView
+            android:id="@+id/similar_movies"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_normal"
+            app:layout_constraintTop_toBottomOf="@id/fragment_details_casting"
+            app:layout_constraintBottom_toTopOf="@id/fragment_details_similar_movies"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0"
+            android:text="@string/similar_movies"
+            style="@style/TextAppearance.MaterialComponents.Headline6"/>
+
+        <!-- RecyclerView: List of similar movies -->
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/fragment_details_similar_movies"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_little"
+            app:layout_constraintTop_toBottomOf="@id/similar_movies"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            tools:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            tools:orientation="horizontal"
+            tools:listitem="@layout/item_poster_film"/>
+
+        <!-- TextView: No similar movies -->
+        <TextView
+            android:id="@+id/fragment_details_no_similar_movies"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_little"
+            app:layout_constraintTop_toBottomOf="@id/similar_movies"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:text="@string/no_similar_movies"
+            style="@style/TextAppearance.MaterialComponents.Body2"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
