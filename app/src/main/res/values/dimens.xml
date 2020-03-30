@@ -2,11 +2,13 @@
 
 <resources>
 
+    <!-- CardView Size -->
+    <dimen name="width_card">110dp</dimen>
+    <dimen name="height_card">130dp</dimen>
+
     <!-- ImageView Size -->
     <dimen name="size_image_item_film">100dp</dimen>
     <dimen name="size_image_fragment_details">120dp</dimen>
-    <dimen name="size_image_item_actor_width">110dp</dimen>
-    <dimen name="size_image_item_actor_height">130dp</dimen>
 
     <!-- Filter Size -->
     <dimen name="filter_actor_height">70dp</dimen>
