@@ -13,4 +13,9 @@ interface FragmentCallback {
      * Called from fragment to activity
      */
     fun showMessage(message: String)
+
+    /**
+     * Called from fragment to activity
+     */
+    fun navigationEvent()
 }

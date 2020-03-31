@@ -81,6 +81,14 @@ class MainActivity : BaseActivity(), FragmentCallback {
         MessageTools.showMassageWithSnackbar(this.activity_main_CoordinatorLayout, message)
     }
 
+    override fun navigationEvent() {
+        if (!this.mSearchView.isIconified) {
+            this.getToolBar()?.menu!!
+                              .findItem(R.id.toolbar_menu_search)
+                              .collapseActionView()
+        }
+    }
+
     // -- Toolbar --
 
     /**

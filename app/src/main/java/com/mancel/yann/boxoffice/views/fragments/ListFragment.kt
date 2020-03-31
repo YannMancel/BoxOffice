@@ -55,6 +55,9 @@ class ListFragment : BaseFragment(), AdapterCallback {
     }
 
     override fun onClick(v: View?) {
+        // Event for the parent activity
+        this.mCallback?.navigationEvent()
+
         // Film from Tag
         val film = v?.tag as? Film
 
