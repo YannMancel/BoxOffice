@@ -35,7 +35,7 @@
             android:layout_height="@dimen/size_image_fragment_details"
             android:layout_marginTop="@dimen/margin_normal"
             app:layout_constraintTop_toBottomOf="@id/fragment_details_title"
-            app:layout_constraintBottom_toTopOf="@id/my_review"
+            app:layout_constraintBottom_toTopOf="@id/fragment_details_my_review_title"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toStartOf="@id/release"
             android:contentDescription="@null"
@@ -124,7 +124,7 @@
 
         <!-- TextView: My review -->
         <TextView
-            android:id="@+id/my_review"
+            android:id="@+id/fragment_details_my_review_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/margin_normal"
@@ -133,7 +133,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0"
-            android:text="@string/my_review"
+            tools:text="@string/my_review"
             style="@style/TextAppearance.MaterialComponents.Headline6"/>
 
         <!-- AppCompatRatingBar: My rate of review of film -->
@@ -142,7 +142,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/margin_little"
-            app:layout_constraintTop_toBottomOf="@id/my_review"
+            app:layout_constraintTop_toBottomOf="@id/fragment_details_my_review_title"
             app:layout_constraintBottom_toTopOf="@id/fragment_details_my_review_text"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -155,7 +155,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/margin_little"
             app:layout_constraintTop_toBottomOf="@id/fragment_details_my_review_rate"
-            app:layout_constraintBottom_toTopOf="@id/synopsis"
+            app:layout_constraintBottom_toTopOf="@id/fragment_details_plot_title"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:hintEnabled="true"
@@ -174,7 +174,7 @@
 
         <!-- TextView: Synopsis -->
         <TextView
-            android:id="@+id/synopsis"
+            android:id="@+id/fragment_details_plot_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/margin_little"
@@ -183,7 +183,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0"
-            android:text="@string/synopsis"
+            tools:text="@string/synopsis"
             style="@style/TextAppearance.MaterialComponents.Headline6"/>
 
         <!-- TextView: Plot of film -->
@@ -192,8 +192,8 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/margin_little"
-            app:layout_constraintTop_toBottomOf="@id/synopsis"
-            app:layout_constraintBottom_toTopOf="@id/casting"
+            app:layout_constraintTop_toBottomOf="@id/fragment_details_plot_title"
+            app:layout_constraintBottom_toTopOf="@id/fragment_details_casting_title"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             tools:text="Refers to the brief narrative constituting the outline of a scenario; it is a succinct summary. "
@@ -201,7 +201,7 @@
 
         <!-- TextView: Casting -->
         <TextView
-            android:id="@+id/casting"
+            android:id="@+id/fragment_details_casting_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/margin_normal"
@@ -210,7 +210,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0"
-            android:text="@string/casting"
+            tools:text="@string/casting"
             style="@style/TextAppearance.MaterialComponents.Headline6"/>
 
         <!-- RecyclerView: List of actors -->
@@ -219,8 +219,8 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/margin_little"
-            app:layout_constraintTop_toBottomOf="@id/casting"
-            app:layout_constraintBottom_toTopOf="@id/similar_movies"
+            app:layout_constraintTop_toBottomOf="@id/fragment_details_casting_title"
+            app:layout_constraintBottom_toTopOf="@id/fragment_details_similar_movies_title"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             tools:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
@@ -229,7 +229,7 @@
 
         <!-- TextView: Similar movies -->
         <TextView
-            android:id="@+id/similar_movies"
+            android:id="@+id/fragment_details_similar_movies_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/margin_normal"
@@ -238,7 +238,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0"
-            android:text="@string/similar_movies"
+            tools:text="@string/similar_movies"
             style="@style/TextAppearance.MaterialComponents.Headline6"/>
 
         <!-- RecyclerView: List of similar movies -->
@@ -247,7 +247,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/margin_little"
-            app:layout_constraintTop_toBottomOf="@id/similar_movies"
+            app:layout_constraintTop_toBottomOf="@id/fragment_details_similar_movies_title"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -261,7 +261,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/margin_little"
-            app:layout_constraintTop_toBottomOf="@id/similar_movies"
+            app:layout_constraintTop_toBottomOf="@id/fragment_details_similar_movies_title"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"

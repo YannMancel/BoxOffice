@@ -1,7 +1,10 @@
 package com.mancel.yann.boxoffice.views.fragments
 
 import android.text.Editable
+import android.text.SpannableString
+import android.text.Spanned
 import android.text.TextWatcher
+import android.text.style.UnderlineSpan
 import android.view.View
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
@@ -205,6 +208,13 @@ class DetailsFragment : BaseFragment(), AdapterCallback {
                 this.mRootView.fragment_details_audience.rating = audience.toFloat() * 5.0F / 10.0F
             }
 
+            // Title: Release
+            this.mRootView.fragment_details_my_review_title.text = SpannableString(
+                this.getString(R.string.my_review)
+            ).apply {
+                setSpan(UnderlineSpan(), 0, length, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
+            }
+
             // My preview
             film.imdbID?.let { id ->
                 this.mRootView.fragment_details_my_review_rate.setOnRatingBarChangeListener { _, rating, _ ->
@@ -247,13 +257,34 @@ class DetailsFragment : BaseFragment(), AdapterCallback {
                 )
             }
 
+            // Title: Synopsis
+            this.mRootView.fragment_details_plot_title.text = SpannableString(
+                this.getString(R.string.synopsis)
+            ).apply {
+                setSpan(UnderlineSpan(), 0, length, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
+            }
+
             // Synopsis
             film.plot?.let { synopsis ->
                 this.mRootView.fragment_details_plot.text = synopsis }
 
+            // Title: Casting
+            this.mRootView.fragment_details_casting_title.text = SpannableString(
+                this.getString(R.string.casting)
+            ).apply {
+                setSpan(UnderlineSpan(), 0, length, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
+            }
+
             // Casting
             film.actors?.let { casting ->
                 this.mActorAdapter.updateData(OMDbTools.getData(casting))
+            }
+
+            // Title: Similar movies
+            this.mRootView.fragment_details_similar_movies_title.text = SpannableString(
+                this.getString(R.string.similar_movies)
+            ).apply {
+                setSpan(UnderlineSpan(), 0, length, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
             }
         }
     }
