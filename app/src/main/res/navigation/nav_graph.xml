@@ -13,10 +13,14 @@
         android:id="@+id/navigation_ListFragment"
         android:name="com.mancel.yann.boxoffice.views.fragments.ListFragment"
         android:label="@string/title_list_fragment"
-        tools:layout="@layout/fragment_list" >
+        tools:layout="@layout/fragment_list">
         <action
             android:id="@+id/action_navigation_ListFragment_to_navigation_DetailsFragment"
-            app:destination="@id/navigation_DetailsFragment" />
+            app:destination="@id/navigation_DetailsFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"/>
     </fragment>
 
     <!-- DetailsFragment -->
@@ -24,12 +28,12 @@
         android:id="@+id/navigation_DetailsFragment"
         android:name="com.mancel.yann.boxoffice.views.fragments.DetailsFragment"
         android:label="@string/title_details_fragment"
-        tools:layout="@layout/fragment_details" >
+        tools:layout="@layout/fragment_details">
         <argument
             android:name="jsonItem"
             app:argType="string"
             app:nullable="true"
-            android:defaultValue="null" />
+            android:defaultValue="null"/>
     </fragment>
 
 </navigation>

@@ -11,6 +11,7 @@ import com.bumptech.glide.Glide
 import com.mancel.yann.boxoffice.R
 import com.mancel.yann.boxoffice.models.Film
 import com.mancel.yann.boxoffice.utils.FilmDiffCallback
+import com.mancel.yann.boxoffice.utils.setTransitionCompat
 import kotlinx.android.synthetic.main.item_film.view.*
 import java.lang.ref.WeakReference
 
@@ -85,13 +86,19 @@ class FilmAdapter(
         // Data
         val film = this.mFilms[position]
 
+        // Transition
+        film.id?.let {
+            holder.itemView.item_film_image.setTransitionCompat("image", film.id!!)
+            holder.itemView.item_film_title.setTransitionCompat("title", film.id!!)
+        }
+
         // CardView: Listener
         holder.itemView.item_film_MaterialCardView.setOnClickListener {
             // Tag -> Film
-            it.tag = film
+            holder.itemView.tag = film
 
             // Callback
-            holder.mCallback.get()?.onClick(it)
+            holder.mCallback.get()?.onClick(holder.itemView)
         }
 
         // UI

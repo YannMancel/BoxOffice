@@ -1,5 +1,6 @@
 package com.mancel.yann.boxoffice.views.fragments
 
+import android.os.Bundle
 import android.text.Editable
 import android.text.SpannableString
 import android.text.Spanned
@@ -10,11 +11,13 @@ import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.transition.TransitionInflater
 import com.bumptech.glide.Glide
 import com.mancel.yann.boxoffice.R
 import com.mancel.yann.boxoffice.models.Film
 import com.mancel.yann.boxoffice.utils.OMDbTools
 import com.mancel.yann.boxoffice.utils.SaveTools
+import com.mancel.yann.boxoffice.utils.setTransitionCompat
 import com.mancel.yann.boxoffice.views.adapters.ActorAdapter
 import com.mancel.yann.boxoffice.views.adapters.AdapterCallback
 import com.mancel.yann.boxoffice.views.adapters.SimilarMovieAdapter
@@ -54,6 +57,9 @@ class DetailsFragment : BaseFragment(), AdapterCallback {
         // SharedPreferences
         this.fetchMyReviewFromSharedPreferences()
 
+        // Transitions
+        this.configureUIForTransition()
+
         // UI
         this.configureRecyclerViewForActors()
         this.configureRecyclerViewForSimilarMovies()
@@ -61,6 +67,13 @@ class DetailsFragment : BaseFragment(), AdapterCallback {
 
         // LiveData
         this.configureFilmLiveData()
+    }
+
+    // -- Fragment --
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        this.configureSharedElementForTransition()
     }
 
     // -- AdapterCallback interface --
@@ -86,6 +99,29 @@ class DetailsFragment : BaseFragment(), AdapterCallback {
         // Navigation by destination (Safe Args)
         val bundle = DetailsFragmentArgs(json).toBundle()
         this.findNavController().navigate(R.id.navigation_DetailsFragment, bundle)
+    }
+
+    // -- Transition --
+
+    /**
+     * Configures the Shared Element for the Transition between Fragment
+     */
+    private fun configureSharedElementForTransition() {
+        val transition = TransitionInflater.from(this.requireContext())
+                                           .inflateTransition(R.transition.move)
+
+        this.sharedElementEnterTransition = transition
+        this.sharedElementReturnTransition = transition
+    }
+
+    /**
+     * Configures UI for Transition
+     */
+    private fun configureUIForTransition() {
+        this.mFilm?.id?.let {
+            this.mRootView.fragment_details_image.setTransitionCompat("image", this.mFilm?.id!!)
+            this.mRootView.fragment_details_title.setTransitionCompat("title", this.mFilm?.id!!)
+        }
     }
 
     // -- Film --

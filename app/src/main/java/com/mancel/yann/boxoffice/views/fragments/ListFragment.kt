@@ -1,12 +1,16 @@
 package com.mancel.yann.boxoffice.views.fragments
 
 import android.view.View
+import android.widget.ImageView
+import android.widget.TextView
 import androidx.lifecycle.Observer
+import androidx.navigation.fragment.FragmentNavigatorExtras
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.mancel.yann.boxoffice.R
 import com.mancel.yann.boxoffice.models.Film
+import com.mancel.yann.boxoffice.utils.getTransitionCompat
 import com.mancel.yann.boxoffice.views.adapters.AdapterCallback
 import com.mancel.yann.boxoffice.views.adapters.FilmAdapter
 import com.squareup.moshi.Moshi
@@ -67,9 +71,18 @@ class ListFragment : BaseFragment(), AdapterCallback {
                         .adapter(Film::class.java)
                         .toJson(film)
 
+        // Extra
+        val imageForTransition = v?.findViewById<ImageView>(R.id.item_film_image)
+        val titleForTransition = v?.findViewById<TextView>(R.id.item_film_title)
+
+        val extras = FragmentNavigatorExtras(
+            imageForTransition!! to imageForTransition.getTransitionCompat(),
+            titleForTransition!! to titleForTransition.getTransitionCompat()
+        )
+
         // Navigation by action (Safe Args)
         val action = ListFragmentDirections.actionNavigationListFragmentToNavigationDetailsFragment(json)
-        this.findNavController().navigate(action)
+        this.findNavController().navigate(action, extras)
     }
 
     // -- RecyclerView --
@@ -94,6 +107,11 @@ class ListFragment : BaseFragment(), AdapterCallback {
             layoutManager = viewManager
             addItemDecoration(divider)
             adapter = this@ListFragment.mAdapter
+            postponeEnterTransition()
+            viewTreeObserver.addOnPreDrawListener {
+                startPostponedEnterTransition()
+                true
+            }
         }
     }
 
