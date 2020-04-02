@@ -1,6 +1,6 @@
 package com.mancel.yann.boxoffice.apis
 
-import com.mancel.yann.boxoffice.models.Film
+import com.mancel.yann.boxoffice.models.OMDbFilm
 import io.reactivex.Observable
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
@@ -19,10 +19,10 @@ interface OMDbService {
 
     companion object {
 
-        private const val baseURL = "https://www.omdbapi.com"
+        private const val BASE_URL = "https://www.omdbapi.com"
 
         val retrofit: Retrofit = Retrofit.Builder()
-                                         .baseUrl(baseURL)
+                                         .baseUrl(BASE_URL)
                                          .addConverterFactory(MoshiConverterFactory.create())
                                          .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                                          .build()
@@ -31,13 +31,13 @@ interface OMDbService {
     // METHODS -------------------------------------------------------------------------------------
 
     /**
-     * Gets a [Film] by title with a HTTP request
+     * Gets a [OMDbFilm] by title with a HTTP request
      * @param title         a [String] that contains the title
      * @param key           a [String] that contains your application's API key
      * @param resultType    a [String] that defines the type of result to return
      * @param dataType      a [String] that defines the data type to return
      * @param plot          a [String] that is either short or full plot
-     * @return an [Observable] of [Film]
+     * @return an [Observable] of [OMDbFilm]
      */
     @GET("/?")
     fun getFilmByTitle(
@@ -46,5 +46,5 @@ interface OMDbService {
         @Query("type") resultType: String,
         @Query("r") dataType: String,
         @Query("plot") plot: String
-    ): Observable<Film>
+    ): Observable<OMDbFilm>
 }

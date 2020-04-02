@@ -109,14 +109,15 @@ class DetailsFragment : BaseFragment(), AdapterCallback {
      * Fetches the user's rating from SharedPreferences
      */
     private fun fetchMyReviewFromSharedPreferences() {
-        this.mFilm?.imdbID?.let { id ->
+        this.mFilm?.id?.let { id ->
             this.mRootView.fragment_details_my_review_rate.rating =
                 SaveTools.fetchFloatFromSharedPreferences(this.requireContext(), key = "$id-rate")
 
-            this.mRootView.fragment_details_my_review_text.editText?.text?.clear()
-            this.mRootView.fragment_details_my_review_text.editText?.text?.append(
-                SaveTools.fetchStringFromSharedPreferences(this.requireContext(), key = "$id-text")
-            )
+            this.mRootView.fragment_details_my_review_text.editText?.text?.let {
+                it.clear()
+                it.append(SaveTools.fetchStringFromSharedPreferences(this.requireContext(),
+                                                                     key = "$id-text"))
+            }
         }
     }
 
@@ -199,12 +200,12 @@ class DetailsFragment : BaseFragment(), AdapterCallback {
             }
 
             // Critics
-            film.metascore?.let { critics ->
+            film.critics?.let { critics ->
                 this.mRootView.fragment_details_critics.rating = critics.toFloat() * 5.0F / 100.0F
             }
 
             // Audience
-            film.imdbRating?.let { audience ->
+            film.audience?.let { audience ->
                 this.mRootView.fragment_details_audience.rating = audience.toFloat() * 5.0F / 10.0F
             }
 
@@ -216,7 +217,7 @@ class DetailsFragment : BaseFragment(), AdapterCallback {
             }
 
             // My preview
-            film.imdbID?.let { id ->
+            film.id?.let { id ->
                 this.mRootView.fragment_details_my_review_rate.setOnRatingBarChangeListener { _, rating, _ ->
                     // Rating into SharedPreferences
                     SaveTools.saveFloatIntoSharedPreferences(
@@ -265,7 +266,7 @@ class DetailsFragment : BaseFragment(), AdapterCallback {
             }
 
             // Synopsis
-            film.plot?.let { synopsis ->
+            film.synopsis?.let { synopsis ->
                 this.mRootView.fragment_details_plot.text = synopsis }
 
             // Title: Casting
@@ -331,7 +332,7 @@ class DetailsFragment : BaseFragment(), AdapterCallback {
         }
         .filter { film ->
             // Remove the selected film
-            this.mFilm?.imdbID != film.imdbID
+            this.mFilm?.id != film.id
         }
     }
 }

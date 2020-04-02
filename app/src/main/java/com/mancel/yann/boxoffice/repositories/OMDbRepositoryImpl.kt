@@ -3,6 +3,7 @@ package com.mancel.yann.boxoffice.repositories
 import com.mancel.yann.boxoffice.apis.DummyBoxOffice
 import com.mancel.yann.boxoffice.apis.OMDbService
 import com.mancel.yann.boxoffice.models.Film
+import com.mancel.yann.boxoffice.utils.MapperTools
 import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
@@ -32,6 +33,7 @@ class OMDbRepositoryImpl : OMDbRepository {
         plot: String
     ): Observable<Film> {
         return this.mOMDbService.getFilmByTitle(title, key, resultType, dataType, plot)
+                                .map { MapperTools.OMDbFilmToFilm(it) }
                                 .subscribeOn(Schedulers.io())
                                 .observeOn(AndroidSchedulers.mainThread())
                                 .timeout(10L, TimeUnit.SECONDS)

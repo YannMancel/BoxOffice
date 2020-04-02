@@ -59,7 +59,7 @@ class ActorAdapter(
         holder.itemView.item_actor_full_name.text = fullNameOfActor
     }
 
-    // -- Film --
+    // -- Actor --
 
     /**
      * Updates data of [ActorAdapter]

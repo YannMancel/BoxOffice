@@ -33,9 +33,12 @@ class OMDbRepositoryTest {
     // METHODS -------------------------------------------------------------------------------------
 
     @Test
-    fun shouldFetchGuardiansOfTheGalaxyVol2() {
+    fun shouldFetchFilm() {
+        // Get the movie's title
+        val title = DummyBoxOffice.filmNames[0]
+
         // Creates Observable
-        val observable = this.mRepository.getStreamToFetchFilmByTitle(title = "Guardians of the Galaxy Vol. 2",
+        val observable = this.mRepository.getStreamToFetchFilmByTitle(title = title,
                                                                       key = this.mKey)
 
         // Creates Observer
@@ -51,7 +54,7 @@ class OMDbRepositoryTest {
         val film = observer.values()[0]
 
         // Test: Response
-        assertEquals("True", film.response)
+        assertEquals(title, film.title)
     }
 
     @Test
@@ -64,15 +67,14 @@ class OMDbRepositoryTest {
 
         // Creates Stream
         observable.subscribeWith(observer)
-            .assertNoErrors()
-            .assertNoTimeout()
-            .awaitTerminalEvent()
+                  .assertNoErrors()
+                  .assertNoTimeout()
+                  .awaitTerminalEvent()
 
         // Fetches the result
         val films = observer.values()[0]
 
         // Test: Response
         assertEquals(DummyBoxOffice.filmNames.size, films.size)
-        films.forEach { assertEquals("True", it.response) }
     }
 }
