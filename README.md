@@ -20,6 +20,10 @@
 4. Select `OK` in *Select Deployment Target dialog*
 
 
+## API Key
+* [OMDb API](http://www.omdbapi.com/apikey.aspx)
+
+
 ## Wiki
 * [Android Jetpack](https://developer.android.com/jetpack)
   * [Architecture Components](https://developer.android.com/topic/libraries/architecture/)
@@ -30,10 +34,11 @@
 * [Library Material Components](https://github.com/material-components/material-components-android)
 * [Library Moshi](https://github.com/square/moshi)
 * [Library Retrofit](https://github.com/square/retrofit)
-* [Library Retrofit Converter Moshi](https://github.com/square/retrofit/tree/master/retrofit-converters/moshi)
-* [Library Retrofit Adapter RxJava2](https://github.com/square/retrofit/tree/master/retrofit-adapters/rxjava2)
-* [Library RxAndroid](https://github.com/ReactiveX/RxAndroid)
-* [Library RxKotlin](https://github.com/ReactiveX/RxKotlin)
+  * [Converter Moshi](https://github.com/square/retrofit/tree/master/retrofit-converters/moshi)
+  * [Adapter RxJava2](https://github.com/square/retrofit/tree/master/retrofit-adapters/rxjava2)
+* [Reactive programming](http://reactivex.io/)
+  * [Library RxAndroid](https://github.com/ReactiveX/RxAndroid)
+  * [Library RxKotlin](https://github.com/ReactiveX/RxKotlin)
 * [Library Glide](https://github.com/bumptech/glide)
 * [Library Koin](https://github.com/InsertKoinIO/koin)
 

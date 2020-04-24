@@ -20,7 +20,7 @@ android {
         // Enable use of 64K or more method references
         multiDexEnabled true
 
-        // API Keys
+        // API Keys in GRADLE_USER_HOME directory
         resValue "string", "omdb_key", (project.findProperty("OMDB_API_KEY") ?: "")
     }
 
