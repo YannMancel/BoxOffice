@@ -1,7 +1,7 @@
 package com.mancel.yann.boxoffice.apis
 
 import com.mancel.yann.boxoffice.models.OMDbFilm
-import io.reactivex.Observable
+import io.reactivex.Single
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.moshi.MoshiConverterFactory
@@ -37,7 +37,7 @@ interface OMDbService {
      * @param resultType    a [String] that defines the type of result to return
      * @param dataType      a [String] that defines the data type to return
      * @param plot          a [String] that is either short or full plot
-     * @return an [Observable] of [OMDbFilm]
+     * @return a [Single] of [OMDbFilm]
      */
     @GET("/?")
     fun getFilmByTitle(
@@ -46,5 +46,5 @@ interface OMDbService {
         @Query("type") resultType: String,
         @Query("r") dataType: String,
         @Query("plot") plot: String
-    ): Observable<OMDbFilm>
+    ): Single<OMDbFilm>
 }

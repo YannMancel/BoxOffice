@@ -36,8 +36,9 @@ abstract class BaseFragment : Fragment() {
 
     /**
      * Configures the design of each daughter class
+     * @param savedInstanceState a [Bundle] to check the configuration changes of [Fragment]
      */
-    protected abstract fun configureDesign()
+    protected abstract fun configureDesign(savedInstanceState: Bundle?)
 
     // -- Fragment --
 
@@ -61,7 +62,7 @@ abstract class BaseFragment : Fragment() {
         // Inflate the layout for this fragment
         this.mRootView = inflater.inflate(this.getFragmentLayout(), container, false)
 
-        this.configureDesign()
+        this.configureDesign(savedInstanceState)
 
         return this.mRootView
     }

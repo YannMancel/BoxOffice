@@ -4,7 +4,7 @@ import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.platform.app.InstrumentationRegistry
 import com.mancel.yann.boxoffice.apis.DummyBoxOffice
 import com.mancel.yann.boxoffice.models.Film
-import com.mancel.yann.boxoffice.repositories.OMDbRepository
+import com.mancel.yann.boxoffice.repositories.FilmRepository
 import com.mancel.yann.boxoffice.repositories.OMDbRepositoryImpl
 import io.reactivex.observers.TestObserver
 import org.junit.Assert.assertEquals
@@ -16,14 +16,14 @@ import org.junit.runner.RunWith
  * Name of the project: BoxOffice
  * Name of the package: com.mancel.yann.boxoffice
  *
- * An android test on [OMDbRepository].
+ * An android test on [FilmRepository].
  */
 @RunWith(AndroidJUnit4::class)
 class OMDbRepositoryTest {
 
     // FIELDS --------------------------------------------------------------------------------------
 
-    private val mRepository: OMDbRepository = OMDbRepositoryImpl()
+    private val mRepository: FilmRepository = OMDbRepositoryImpl()
 
     private val mKey = InstrumentationRegistry.getInstrumentation()
                                               .targetContext

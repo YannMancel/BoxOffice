@@ -15,7 +15,7 @@ object MapperTools {
      * @param omdbFilm a [OMDbFilm]
      * @return a [Film]
      */
-    fun OMDbFilmToFilm(omdbFilm: OMDbFilm): Film {
+    fun fromOMDbFilmToFilm(omdbFilm: OMDbFilm): Film {
         return Film(
             id = omdbFilm.imdbID,
             title = omdbFilm.title,

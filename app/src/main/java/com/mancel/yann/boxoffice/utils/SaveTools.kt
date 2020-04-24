@@ -1,6 +1,7 @@
 package com.mancel.yann.boxoffice.utils
 
 import android.content.Context
+import androidx.core.content.edit
 
 /**
  * Created by Yann MANCEL on 29/03/2020.
@@ -27,9 +28,9 @@ object SaveTools {
         value: Float
     ) {
         context.getSharedPreferences(SAVE_FILE_NAME, Context.MODE_PRIVATE)
-               .edit()
-               .putFloat(key, value)
-               .apply()
+               .edit {
+                   putFloat(key, value)
+               }
     }
 
     /**
@@ -44,9 +45,9 @@ object SaveTools {
         value: String
     ) {
         context.getSharedPreferences(SAVE_FILE_NAME, Context.MODE_PRIVATE)
-               .edit()
-               .putString(key, value)
-               .apply()
+               .edit {
+                   putString(key, value)
+               }
     }
 
     /**

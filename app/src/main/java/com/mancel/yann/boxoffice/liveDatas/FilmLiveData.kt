@@ -3,9 +3,9 @@ package com.mancel.yann.boxoffice.liveDatas
 import android.util.Log
 import androidx.lifecycle.LiveData
 import com.mancel.yann.boxoffice.models.Film
-import io.reactivex.Observable
+import io.reactivex.Single
 import io.reactivex.disposables.Disposable
-import io.reactivex.observers.DisposableObserver
+import io.reactivex.observers.DisposableSingleObserver
 
 /**
  * Created by Yann MANCEL on 28/03/2020.
@@ -38,16 +38,14 @@ class FilmLiveData : LiveData<List<Film>>() {
     // -- Films --
 
     /**
-     * Gets the [List] of [Film] with [Observable]
-     * @param observable an [Observable] of [List] of [Film]
+     * Gets the [List] of [Film] with [Single]
+     * @param single an [Single] of [List] of [Film]
      */
-    fun getFilmsWithObservable(observable: Observable<List<Film>>) {
+    fun getFilmsWithSingle(single: Single<List<Film>>) {
         // Creates stream
-        this.mDisposable = observable.subscribeWith(object : DisposableObserver<List<Film>>() {
+        this.mDisposable = single.subscribeWith(object : DisposableSingleObserver<List<Film>>() {
 
-            override fun onComplete() { /* Do nothing */ }
-
-            override fun onNext(films: List<Film>) {
+            override fun onSuccess(films: List<Film>) {
                 // Notify
                 this@FilmLiveData.value = films
             }

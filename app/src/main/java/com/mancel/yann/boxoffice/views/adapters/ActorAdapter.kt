@@ -38,11 +38,7 @@ class ActorAdapter(
     }
 
     override fun onBindViewHolder(holder: ActorViewHolder, position: Int) {
-        // Data
-        val actor = this.mActors[position]
-
-        // UI
-        this.configureDesign(holder, actor)
+        this.configureDesign(holder, this.mActors[position])
     }
 
     override fun getItemCount(): Int = this.mActors.size

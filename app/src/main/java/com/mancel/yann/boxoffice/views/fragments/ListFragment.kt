@@ -1,5 +1,6 @@
 package com.mancel.yann.boxoffice.views.fragments
 
+import android.os.Bundle
 import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
@@ -36,13 +37,13 @@ class ListFragment : BaseFragment(), AdapterCallback {
 
     override fun getFragmentLayout(): Int = R.layout.fragment_list
 
-    override fun configureDesign() {
+    override fun configureDesign(savedInstanceState: Bundle?) {
         // UI
         this.configureRecyclerView()
         this.configureSwipeRefreshLayout()
 
         // LiveData
-        this.configureFilmLiveData()
+        this.configureFilmLiveData(savedInstanceState)
     }
 
     override fun syncData() = this.mViewModel.fetchFilms(this.requireContext())
@@ -52,10 +53,11 @@ class ListFragment : BaseFragment(), AdapterCallback {
     // -- AdapterCallback interface --
 
     override fun onDataChanged() {
-        this.mRootView.fragment_list_no_data.visibility = if (this.mAdapter.itemCount == 0)
-                                                              View.VISIBLE
-                                                          else
-                                                              View.GONE
+        this.mRootView.fragment_list_no_data.visibility =
+            if (this.mAdapter.itemCount == 0)
+                View.VISIBLE
+            else
+                View.GONE
     }
 
     override fun onClick(v: View?) {
@@ -130,9 +132,11 @@ class ListFragment : BaseFragment(), AdapterCallback {
 
     /**
      * Configures the LiveData
+     * @param savedInstanceState a [Bundle] to check the configuration changes of [ListFragment]
      */
-    private fun configureFilmLiveData() {
-        this.mViewModel.getFilms(this.requireContext())
+    private fun configureFilmLiveData(savedInstanceState: Bundle?) {
+        this.mViewModel
+            .getFilms()
             .observe(this.viewLifecycleOwner, Observer {
                 // Stops the animation of SwipeRefreshLayout
                 if (this.mRootView.fragment_list_SwipeRefreshLayout.isRefreshing) {
@@ -144,5 +148,9 @@ class ListFragment : BaseFragment(), AdapterCallback {
                 
                 this.mAdapter.updateData(it)
             })
+
+        if (savedInstanceState == null) {
+            this.mViewModel.fetchFilms(this.requireContext())
+        }
     }
 }

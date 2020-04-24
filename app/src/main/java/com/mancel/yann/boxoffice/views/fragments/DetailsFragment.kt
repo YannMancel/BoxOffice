@@ -16,7 +16,6 @@ import com.bumptech.glide.Glide
 import com.mancel.yann.boxoffice.R
 import com.mancel.yann.boxoffice.models.Film
 import com.mancel.yann.boxoffice.utils.OMDbTools
-import com.mancel.yann.boxoffice.utils.SaveTools
 import com.mancel.yann.boxoffice.utils.setTransitionCompat
 import com.mancel.yann.boxoffice.views.adapters.ActorAdapter
 import com.mancel.yann.boxoffice.views.adapters.AdapterCallback
@@ -50,12 +49,12 @@ class DetailsFragment : BaseFragment(), AdapterCallback {
 
     override fun getFragmentLayout(): Int = R.layout.fragment_details
 
-    override fun configureDesign() {
+    override fun configureDesign(savedInstanceState: Bundle?) {
         // Film
         this.fetchFilmFromArgument()
 
-        // SharedPreferences
-        this.fetchMyReviewFromSharedPreferences()
+        // My review
+        this.fetchMyReview()
 
         // Transitions
         this.configureUIForTransition()
@@ -66,7 +65,7 @@ class DetailsFragment : BaseFragment(), AdapterCallback {
         this.configureUI()
 
         // LiveData
-        this.configureFilmLiveData()
+        this.configureFilmLiveData(savedInstanceState)
     }
 
     // -- Fragment --
@@ -142,17 +141,24 @@ class DetailsFragment : BaseFragment(), AdapterCallback {
     // -- My review --
 
     /**
-     * Fetches the user's rating from SharedPreferences
+     * Fetches the user's review
      */
-    private fun fetchMyReviewFromSharedPreferences() {
-        this.mFilm?.id?.let { id ->
+    private fun fetchMyReview() {
+        this.mFilm?.id?.let {
             this.mRootView.fragment_details_my_review_rate.rating =
-                SaveTools.fetchFloatFromSharedPreferences(this.requireContext(), key = "$id-rate")
+                this.mViewModel.fetchRatingOfFilm(
+                    this.requireContext(),
+                    this.mFilm!!
+                )
 
             this.mRootView.fragment_details_my_review_text.editText?.text?.let {
                 it.clear()
-                it.append(SaveTools.fetchStringFromSharedPreferences(this.requireContext(),
-                                                                     key = "$id-text"))
+                it.append(
+                    this.mViewModel.fetchCommentsOfFilm(
+                        this.requireContext(),
+                        this.mFilm!!
+                    )
+                )
             }
         }
     }
@@ -253,13 +259,13 @@ class DetailsFragment : BaseFragment(), AdapterCallback {
             }
 
             // My preview
-            film.id?.let { id ->
+            film.id?.let {
                 this.mRootView.fragment_details_my_review_rate.setOnRatingBarChangeListener { _, rating, _ ->
-                    // Rating into SharedPreferences
-                    SaveTools.saveFloatIntoSharedPreferences(
+                    // Save Rating
+                    this.mViewModel.saveRatingOfFilm(
                         this.requireContext(),
-                        key = "$id-rate",
-                        value = rating
+                        film = film,
+                        rating = rating
                     )
 
                     this.mCallback?.showMessage(this.getString(R.string.your_rating, rating))
@@ -283,11 +289,11 @@ class DetailsFragment : BaseFragment(), AdapterCallback {
                         ) { /* Do nothing */ }
 
                         override fun afterTextChanged(s: Editable?) {
-                            // Rating into SharedPreferences
-                            SaveTools.saveStringIntoSharedPreferences(
+                            // Save Comments
+                            this@DetailsFragment.mViewModel.saveCommentsOfFilm(
                                 this@DetailsFragment.requireContext(),
-                                key = "$id-text",
-                                value = s.toString()
+                                film = film,
+                                comment = s.toString()
                             )
                         }
                     }
@@ -330,9 +336,11 @@ class DetailsFragment : BaseFragment(), AdapterCallback {
 
     /**
      * Configures the LiveData
+     * @param savedInstanceState a [Bundle] to check the configuration changes of [DetailsFragment]
      */
-    private fun configureFilmLiveData() {
-        this.mViewModel.getFilms(this.requireContext())
+    private fun configureFilmLiveData(savedInstanceState: Bundle?) {
+        this.mViewModel
+            .getFilms()
             .observe(this.viewLifecycleOwner, Observer {
                 val similarMovies = this.getSimilarMovies(it)
 
@@ -340,6 +348,10 @@ class DetailsFragment : BaseFragment(), AdapterCallback {
 
                 this.mSimilarMovieAdapter.updateData(similarMovies)
             })
+
+        if (savedInstanceState == null) {
+            this.mViewModel.fetchFilms(this.requireContext())
+        }
     }
 
     // -- Similar movies --

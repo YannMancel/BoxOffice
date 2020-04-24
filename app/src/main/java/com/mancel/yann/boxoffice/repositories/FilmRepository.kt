@@ -1,16 +1,19 @@
 package com.mancel.yann.boxoffice.repositories
 
+import android.content.Context
 import com.mancel.yann.boxoffice.models.Film
-import io.reactivex.Observable
+import io.reactivex.Single
 
 /**
  * Created by Yann MANCEL on 27/03/2020.
  * Name of the project: BoxOffice
  * Name of the package: com.mancel.yann.boxoffice.repositories
  */
-interface OMDbRepository {
+interface FilmRepository {
 
     // METHODS -------------------------------------------------------------------------------------
+
+    // -- Stream --
 
     /**
      * Gets a stream to fetch the [Film] by its title
@@ -19,7 +22,7 @@ interface OMDbRepository {
      * @param resultType    a [String] that defines the type of result to return
      * @param dataType      a [String] that defines the data type to return
      * @param plot          a [String] that is either short or full plot
-     * @return an [Observable] of [Film]
+     * @return a [Single] of [Film]
      */
     fun getStreamToFetchFilmByTitle(
         title: String,
@@ -27,7 +30,7 @@ interface OMDbRepository {
         resultType: String = "movie",
         dataType: String = "json",
         plot: String = "short"
-    ): Observable<Film>
+    ): Single<Film>
 
     /**
      * Gets a stream to fetch the [List] of [Film]
@@ -35,12 +38,60 @@ interface OMDbRepository {
      * @param resultType    a [String] that defines the type of result to return
      * @param dataType      a [String] that defines the data type to return
      * @param plot          a [String] that is either short or full plot
-     * @return an [Observable] of [List] of [Film]
+     * @return a [Single] of [List] of [Film]
      */
     fun getStreamToFetchFilms(
         key: String,
         resultType: String = "movie",
         dataType: String = "json",
         plot: String = "short"
-    ): Observable<List<Film>>
+    ): Single<List<Film>>
+
+    // -- Data --
+
+    /**
+     * Saves the rating of [Film]
+     * @param context   a [Context]
+     * @param film      a [Film]
+     * @param rating    a [Float] that contains the rating value
+     */
+    fun saveRatingOfFilm(
+        context: Context,
+        film: Film,
+        rating: Float
+    )
+
+    /**
+     * Fetches the rating of [Film]
+     * @param context   a [Context]
+     * @param film      a [Film]
+     * @return a [Float] that contains the rating value
+     */
+    fun fetchRatingOfFilm(
+        context: Context,
+        film: Film
+    ): Float
+
+    /**
+     * Saves the comments of [Film]
+     * @param context   a [Context]
+     * @param film      a [Film]
+     * @param comment   a [String] that contains the comment
+     */
+    fun saveCommentsOfFilm(
+        context: Context,
+        film: Film,
+        comment: String
+    )
+
+    /**
+     * Fetches the comments of [Film]
+     * @param context   a [Context]
+     * @param film      a [Film]
+     * @return a [String] that contains the comment
+     */
+    fun fetchCommentsOfFilm(
+        context: Context,
+        film: Film
+    ): String
 }

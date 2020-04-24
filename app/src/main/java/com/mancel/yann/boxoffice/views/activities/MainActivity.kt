@@ -78,7 +78,7 @@ class MainActivity : BaseActivity(), FragmentCallback {
     // -- FragmentCallback interface --
 
     override fun showMessage(message: String) {
-        MessageTools.showMassageWithSnackbar(this.activity_main_CoordinatorLayout, message)
+        MessageTools.showMessageWithSnackbar(this.activity_main_CoordinatorLayout, message)
     }
 
     override fun navigationEvent() {
