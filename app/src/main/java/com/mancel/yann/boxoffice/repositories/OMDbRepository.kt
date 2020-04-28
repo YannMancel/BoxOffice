@@ -19,7 +19,7 @@ import java.util.concurrent.TimeUnit
  *
  * A class which implements [FilmRepository].
  */
-class OMDbRepositoryImpl : FilmRepository {
+class OMDbRepository : FilmRepository {
 
     // FIELDS --------------------------------------------------------------------------------------
 

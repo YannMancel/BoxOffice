@@ -5,7 +5,7 @@ import androidx.test.platform.app.InstrumentationRegistry
 import com.mancel.yann.boxoffice.apis.DummyBoxOffice
 import com.mancel.yann.boxoffice.models.Film
 import com.mancel.yann.boxoffice.repositories.FilmRepository
-import com.mancel.yann.boxoffice.repositories.OMDbRepositoryImpl
+import com.mancel.yann.boxoffice.repositories.OMDbRepository
 import io.reactivex.observers.TestObserver
 import org.junit.Assert.assertEquals
 import org.junit.Test
@@ -23,7 +23,7 @@ class OMDbRepositoryTest {
 
     // FIELDS --------------------------------------------------------------------------------------
 
-    private val mRepository: FilmRepository = OMDbRepositoryImpl()
+    private val mRepository: FilmRepository = OMDbRepository()
 
     private val mKey = InstrumentationRegistry.getInstrumentation()
                                               .targetContext
