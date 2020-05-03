@@ -2,7 +2,7 @@ package com.mancel.yann.boxoffice.liveDatas
 
 import android.util.Log
 import androidx.lifecycle.LiveData
-import com.mancel.yann.boxoffice.models.Film
+import com.mancel.yann.boxoffice.models.Movie
 import io.reactivex.Single
 import io.reactivex.disposables.Disposable
 import io.reactivex.observers.DisposableSingleObserver
@@ -12,9 +12,9 @@ import io.reactivex.observers.DisposableSingleObserver
  * Name of the project: BoxOffice
  * Name of the package: com.mancel.yann.boxoffice.liveDatas
  *
- * A [LiveData] of [List] of [Film] subclass.
+ * A [LiveData] of [List] of [Movie] subclass.
  */
-class FilmLiveData : LiveData<List<Film>>() {
+class MovieLiveData : LiveData<List<Movie>>() {
 
     // FIELDS --------------------------------------------------------------------------------------
 
@@ -35,23 +35,23 @@ class FilmLiveData : LiveData<List<Film>>() {
         }
     }
 
-    // -- Films --
+    // -- Movies --
 
     /**
-     * Gets the [List] of [Film] with [Single]
-     * @param single an [Single] of [List] of [Film]
+     * Gets the [List] of [Movie] with [Single]
+     * @param single a [Single] of [List] of [Movie]
      */
-    fun getFilmsWithSingle(single: Single<List<Film>>) {
+    fun getMoviesWithSingle(single: Single<List<Movie>>) {
         // Creates stream
-        this.mDisposable = single.subscribeWith(object : DisposableSingleObserver<List<Film>>() {
+        this.mDisposable = single.subscribeWith(object : DisposableSingleObserver<List<Movie>>() {
 
-            override fun onSuccess(films: List<Film>) {
+            override fun onSuccess(movies: List<Movie>) {
                 // Notify
-                this@FilmLiveData.value = films
+                this@MovieLiveData.value = movies
             }
 
             override fun onError(e: Throwable) {
-                Log.e(this@FilmLiveData::class.simpleName, "${this@FilmLiveData::class.simpleName}: onError: ${e.message}")
+                Log.e(this@MovieLiveData::class.simpleName, "${this@MovieLiveData::class.simpleName}: onError: ${e.message}")
             }
         })
     }

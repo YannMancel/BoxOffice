@@ -9,8 +9,8 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.mancel.yann.boxoffice.R
-import com.mancel.yann.boxoffice.models.Film
-import com.mancel.yann.boxoffice.utils.FilmDiffCallback
+import com.mancel.yann.boxoffice.models.Movie
+import com.mancel.yann.boxoffice.utils.MovieDiffCallback
 import com.mancel.yann.boxoffice.utils.setTransitionCompat
 import kotlinx.android.synthetic.main.item_film.view.*
 import java.lang.ref.WeakReference
@@ -22,9 +22,9 @@ import java.lang.ref.WeakReference
  *
  * A [RecyclerView.Adapter] subclass which implements [Filterable].
  */
-class FilmAdapter(
+class MovieAdapter(
     private val mCallback: AdapterCallback? = null
-) : RecyclerView.Adapter<FilmAdapter.FilmViewHolder>(), Filterable {
+) : RecyclerView.Adapter<MovieAdapter.MovieViewHolder>(), Filterable {
 
     // ENUMS ---------------------------------------------------------------------------------------
 
@@ -32,24 +32,24 @@ class FilmAdapter(
 
     // FIELDS --------------------------------------------------------------------------------------
 
-    private val mFilms = mutableListOf<Film>()
-    private val mFilmsAll = mutableListOf<Film>()
+    private val mMovies = mutableListOf<Movie>()
+    private val mMoviesAll = mutableListOf<Movie>()
 
     private val mFilter = object : Filter() {
 
         // Run in Background Thread
         override fun performFiltering(constraint: CharSequence?): FilterResults {
-            val filteredFilms = mutableListOf<Film>()
+            val filteredMovies = mutableListOf<Movie>()
 
             constraint?.let { charSequence ->
                 if (charSequence.toString().isEmpty()) {
-                    filteredFilms.addAll(this@FilmAdapter.mFilmsAll)
+                    filteredMovies.addAll(this@MovieAdapter.mMoviesAll)
                 }
                 else {
-                    this@FilmAdapter.mFilmsAll.forEach { film ->
-                        film.title?.let { title ->
+                    this@MovieAdapter.mMoviesAll.forEach { movie ->
+                        movie.title?.let { title ->
                             if (title.contains(charSequence.toString(), ignoreCase = true)) {
-                                filteredFilms.add(film)
+                                filteredMovies.add(movie)
                             }
                         }
                     }
@@ -57,15 +57,15 @@ class FilmAdapter(
             }
 
             return FilterResults().apply {
-                values = filteredFilms
+                values = filteredMovies
             }
         }
 
         // Run in UI Thread
         override fun publishResults(constraint: CharSequence?, results: FilterResults?) {
             results?.let {
-                val filteredFilms = (it.values as List<*>).filterIsInstance<Film>()
-                this@FilmAdapter.updateData(filteredFilms, DisplayMode.FILTER_MODE)
+                val filteredMovies = (it.values as List<*>).filterIsInstance<Movie>()
+                this@MovieAdapter.updateData(filteredMovies, DisplayMode.FILTER_MODE)
             }
         }
     }
@@ -74,38 +74,38 @@ class FilmAdapter(
 
     // -- RecyclerView.Adapter --
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): FilmViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MovieViewHolder {
         // Creates the View thanks to the inflater
         val view = LayoutInflater.from(parent.context)
                                  .inflate(R.layout.item_film, parent, false)
 
-        return FilmViewHolder(view, WeakReference(this.mCallback))
+        return MovieViewHolder(view, WeakReference(this.mCallback))
     }
 
-    override fun onBindViewHolder(holder: FilmViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: MovieViewHolder, position: Int) {
         // Data
-        val film = this.mFilms[position]
+        val movie = this.mMovies[position]
 
         // Transition
-        film.id?.let {
-            holder.itemView.item_film_image.setTransitionCompat("image", film.id!!)
-            holder.itemView.item_film_title.setTransitionCompat("title", film.id!!)
+        movie.id?.let {
+            holder.itemView.item_film_image.setTransitionCompat("image", movie.id!!)
+            holder.itemView.item_film_title.setTransitionCompat("title", movie.id!!)
         }
 
         // CardView: Listener
         holder.itemView.item_film_MaterialCardView.setOnClickListener {
             // Tag -> Film
-            holder.itemView.tag = film
+            holder.itemView.tag = movie
 
             // Callback
             holder.mCallback.get()?.onClick(holder.itemView)
         }
 
         // UI
-        this.configureDesign(holder, film)
+        this.configureDesign(holder, movie)
     }
 
-    override fun getItemCount(): Int = this.mFilms.size
+    override fun getItemCount(): Int = this.mMovies.size
 
     // -- Filterable interface --
 
@@ -115,12 +115,12 @@ class FilmAdapter(
 
     /**
      * Configures the design of each item
-     * @param holder    a [FilmViewHolder] that corresponds to the item
-     * @param film      a [Film]
+     * @param holder    a [MovieViewHolder] that corresponds to the item
+     * @param movie     a [Movie]
      */
-    private fun configureDesign(holder: FilmViewHolder, film: Film) {
+    private fun configureDesign(holder: MovieViewHolder, movie: Movie) {
         // Image
-        film.poster?.let {
+        movie.poster?.let {
             Glide.with(holder.itemView)
                  .load(it)
                  .centerCrop()
@@ -129,35 +129,38 @@ class FilmAdapter(
         }
 
         // Title
-        film.title?.let { holder.itemView.item_film_title.text = it }
+        movie.title?.let { holder.itemView.item_film_title.text = it }
 
         // Director
-        film.director?.let { holder.itemView.item_film_director.text = it }
+        movie.director?.let { holder.itemView.item_film_director.text = it }
     }
 
-    // -- Film --
+    // -- Movie --
 
     /**
-     * Updates data of [FilmAdapter]
-     * @param newFilms      a [List] of [Film]
+     * Updates data of [MovieAdapter]
+     * @param newMovies     a [List] of [Movie]
      * @param displayMode   a [DisplayMode]
      */
-    fun updateData(newFilms: List<Film>, displayMode: DisplayMode = DisplayMode.NORMAL_MODE) {
+    fun updateData(
+        newMovies: List<Movie>,
+        displayMode: DisplayMode = DisplayMode.NORMAL_MODE
+    ) {
         // Optimizes the performances of RecyclerView
-        val diffCallback  = FilmDiffCallback(this.mFilms, newFilms)
+        val diffCallback  = MovieDiffCallback(this.mMovies, newMovies)
         val diffResult  = DiffUtil.calculateDiff(diffCallback )
 
         // New data
-        this.mFilms.clear()
-        this.mFilms.addAll(newFilms)
+        this.mMovies.clear()
+        this.mMovies.addAll(newMovies)
 
         if (displayMode == DisplayMode.NORMAL_MODE) {
-            this.mFilmsAll.clear()
-            this.mFilmsAll.addAll(this.mFilms)
+            this.mMoviesAll.clear()
+            this.mMoviesAll.addAll(this.mMovies)
         }
 
         // Notifies adapter
-        diffResult.dispatchUpdatesTo(this@FilmAdapter)
+        diffResult.dispatchUpdatesTo(this@MovieAdapter)
 
         // Callback
         this.mCallback?.onDataChanged()
@@ -168,7 +171,7 @@ class FilmAdapter(
     /**
      * A [RecyclerView.ViewHolder] subclass.
      */
-    class FilmViewHolder(
+    class MovieViewHolder(
         itemView: View,
         var mCallback: WeakReference<AdapterCallback?>
     ) : RecyclerView.ViewHolder(itemView)

@@ -1,7 +1,7 @@
 package com.mancel.yann.boxoffice.utils
 
-import com.mancel.yann.boxoffice.models.Film
-import com.mancel.yann.boxoffice.models.OMDbFilm
+import com.mancel.yann.boxoffice.models.Movie
+import com.mancel.yann.boxoffice.models.OMDbMovie
 
 /**
  * Created by Yann MANCEL on 02/04/2020.
@@ -11,22 +11,22 @@ import com.mancel.yann.boxoffice.models.OMDbFilm
 object MapperTools {
 
     /**
-     * A mapper to convert [OMDbFilm] to [Film]
-     * @param omdbFilm a [OMDbFilm]
-     * @return a [Film]
+     * A mapper to convert [OMDbMovie] to [Movie]
+     * @param omdbMovie a [OMDbMovie]
+     * @return a [Movie]
      */
-    fun fromOMDbFilmToFilm(omdbFilm: OMDbFilm): Film {
-        return Film(
-            id = omdbFilm.imdbID,
-            title = omdbFilm.title,
-            released = omdbFilm.released,
-            genre = omdbFilm.genre,
-            director = omdbFilm.director,
-            actors = omdbFilm.actors,
-            synopsis = omdbFilm.plot,
-            poster = omdbFilm.poster,
-            critics = omdbFilm.metascore,
-            audience = omdbFilm.imdbRating
+    fun fromOMDbMovieToMovie(omdbMovie: OMDbMovie): Movie {
+        return Movie(
+            id = omdbMovie.imdbID,
+            title = omdbMovie.title,
+            released = omdbMovie.released,
+            genre = omdbMovie.genre,
+            director = omdbMovie.director,
+            actors = omdbMovie.actors,
+            synopsis = omdbMovie.plot,
+            poster = omdbMovie.poster,
+            critics = omdbMovie.metascore,
+            audience = omdbMovie.imdbRating
         )
     }
 }

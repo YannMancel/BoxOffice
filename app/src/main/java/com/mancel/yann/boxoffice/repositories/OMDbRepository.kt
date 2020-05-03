@@ -3,7 +3,7 @@ package com.mancel.yann.boxoffice.repositories
 import android.content.Context
 import com.mancel.yann.boxoffice.apis.DummyBoxOffice
 import com.mancel.yann.boxoffice.apis.OMDbService
-import com.mancel.yann.boxoffice.models.Film
+import com.mancel.yann.boxoffice.models.Movie
 import com.mancel.yann.boxoffice.utils.MapperTools
 import com.mancel.yann.boxoffice.utils.SaveTools
 import io.reactivex.Observable
@@ -17,9 +17,9 @@ import java.util.concurrent.TimeUnit
  * Name of the project: BoxOffice
  * Name of the package: com.mancel.yann.boxoffice.repositories
  *
- * A class which implements [FilmRepository].
+ * A class which implements [MovieRepository].
  */
-class OMDbRepository : FilmRepository {
+class OMDbRepository : MovieRepository {
 
     // FIELDS --------------------------------------------------------------------------------------
 
@@ -30,30 +30,30 @@ class OMDbRepository : FilmRepository {
 
     // -- Stream --
 
-    override fun getStreamToFetchFilmByTitle(
+    override fun getStreamToFetchMovieByTitle(
         title: String,
         key: String,
         resultType: String,
         dataType: String,
         plot: String
-    ): Single<Film> {
+    ): Single<Movie> {
         return this.mOMDbService.getFilmByTitle(title, key, resultType, dataType, plot)
-                                .map { MapperTools.fromOMDbFilmToFilm(it) }
+                                .map { MapperTools.fromOMDbMovieToMovie(it) }
                                 .subscribeOn(Schedulers.io())
                                 .observeOn(AndroidSchedulers.mainThread())
                                 .timeout(10L, TimeUnit.SECONDS)
     }
 
-    override fun getStreamToFetchFilms(
+    override fun getStreamToFetchMovies(
         key: String,
         resultType: String,
         dataType: String,
         plot: String
-    ): Single<List<Film>> {
-        return Observable.just(DummyBoxOffice.filmNames)
+    ): Single<List<Movie>> {
+        return Observable.just(DummyBoxOffice.movieNames)
                          .flatMapIterable { it }
                          .flatMap {
-                             this.getStreamToFetchFilmByTitle(it, key, resultType, dataType, plot)
+                             this.getStreamToFetchMovieByTitle(it, key, resultType, dataType, plot)
                                  .toObservable()
                          }
                          .toList()
@@ -61,17 +61,17 @@ class OMDbRepository : FilmRepository {
 
     // -- Rating of film --
 
-    override fun saveRatingOfFilm(context: Context, film: Film, rating: Float) =
-        SaveTools.saveFloatIntoSharedPreferences(context, "${film.id!!}-rate", rating)
+    override fun saveRatingOfMovie(context: Context, movie: Movie, rating: Float) =
+        SaveTools.saveFloatIntoSharedPreferences(context, "${movie.id!!}-rate", rating)
 
-    override fun fetchRatingOfFilm(context: Context, film: Film): Float =
-        SaveTools.fetchFloatFromSharedPreferences(context, "${film.id!!}-rate")
+    override fun fetchRatingOfMovie(context: Context, movie: Movie): Float =
+        SaveTools.fetchFloatFromSharedPreferences(context, "${movie.id!!}-rate")
 
     // -- Comments of film --
 
-    override fun saveCommentsOfFilm(context: Context, film: Film, comment: String) =
-        SaveTools.saveStringIntoSharedPreferences(context, "${film.id!!}-text", comment)
+    override fun saveCommentsOfMovie(context: Context, movie: Movie, comment: String) =
+        SaveTools.saveStringIntoSharedPreferences(context, "${movie.id!!}-text", comment)
 
-    override fun fetchCommentsOfFilm(context: Context, film: Film): String =
-        SaveTools.fetchStringFromSharedPreferences(context, "${film.id!!}-text")
+    override fun fetchCommentsOfMovie(context: Context, movie: Movie): String =
+        SaveTools.fetchStringFromSharedPreferences(context, "${movie.id!!}-text")
 }

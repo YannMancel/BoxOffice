@@ -7,8 +7,8 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.mancel.yann.boxoffice.R
-import com.mancel.yann.boxoffice.models.Film
-import com.mancel.yann.boxoffice.utils.FilmDiffCallback
+import com.mancel.yann.boxoffice.models.Movie
+import com.mancel.yann.boxoffice.utils.MovieDiffCallback
 import kotlinx.android.synthetic.main.item_poster_film.view.*
 import java.lang.ref.WeakReference
 
@@ -25,7 +25,7 @@ class SimilarMovieAdapter(
 
     // FIELDS --------------------------------------------------------------------------------------
 
-    private val mFilms = mutableListOf<Film>()
+    private val mMovies = mutableListOf<Movie>()
 
     // METHODS -------------------------------------------------------------------------------------
 
@@ -41,33 +41,33 @@ class SimilarMovieAdapter(
 
     override fun onBindViewHolder(holder: SimilarMovieHolder, position: Int) {
         // Data
-        val film = this.mFilms[position]
+        val movie = this.mMovies[position]
 
         // CardView: Listener
         holder.itemView.item_poster_film_CardView.setOnClickListener {
-            // Tag -> Film
-            it.tag = film
+            // Tag -> movie
+            it.tag = movie
 
             // Callback
             holder.mCallback.get()?.onClick(it)
         }
 
         // UI
-        this.configureDesign(holder, film)
+        this.configureDesign(holder, movie)
     }
 
-    override fun getItemCount(): Int = this.mFilms.size
+    override fun getItemCount(): Int = this.mMovies.size
 
     // -- Design item --
 
     /**
      * Configures the design of each item
      * @param holder    a [SimilarMovieHolder] that corresponds to the item
-     * @param film      a [Film]
+     * @param movie     a [Movie]
      */
-    private fun configureDesign(holder: SimilarMovieHolder, film: Film) {
+    private fun configureDesign(holder: SimilarMovieHolder, movie: Movie) {
         // Image
-        film.poster?.let {
+        movie.poster?.let {
             Glide.with(holder.itemView)
                  .load(it)
                  .centerCrop()
@@ -76,23 +76,23 @@ class SimilarMovieAdapter(
         }
 
         // Title
-        film.title?.let { holder.itemView.item_poster_film_title.text = it }
+        movie.title?.let { holder.itemView.item_poster_film_title.text = it }
     }
 
     // -- Film --
 
     /**
      * Updates data of [SimilarMovieAdapter]
-     * @param newFilms      a [List] of [Film]
+     * @param newMovies a [List] of [Movie]
      */
-    fun updateData(newFilms: List<Film>) {
+    fun updateData(newMovies: List<Movie>) {
         // Optimizes the performances of RecyclerView
-        val diffCallback  = FilmDiffCallback(this.mFilms, newFilms)
+        val diffCallback  = MovieDiffCallback(this.mMovies, newMovies)
         val diffResult  = DiffUtil.calculateDiff(diffCallback )
 
         // New data
-        this.mFilms.clear()
-        this.mFilms.addAll(newFilms)
+        this.mMovies.clear()
+        this.mMovies.addAll(newMovies)
 
         // Notifies adapter
         diffResult.dispatchUpdatesTo(this@SimilarMovieAdapter)

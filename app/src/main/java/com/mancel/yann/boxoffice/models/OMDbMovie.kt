@@ -9,7 +9,7 @@ import com.squareup.moshi.JsonClass
  * Name of the package: com.mancel.yann.boxoffice.models
  */
 @JsonClass(generateAdapter = true)
-data class OMDbFilm (
+data class OMDbMovie (
     @Json(name = "Title")
     var title: String? = null,
     @Json(name = "Year")

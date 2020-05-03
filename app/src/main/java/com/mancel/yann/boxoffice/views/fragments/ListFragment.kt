@@ -10,10 +10,10 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.mancel.yann.boxoffice.R
-import com.mancel.yann.boxoffice.models.Film
+import com.mancel.yann.boxoffice.models.Movie
 import com.mancel.yann.boxoffice.utils.getTransitionCompat
 import com.mancel.yann.boxoffice.views.adapters.AdapterCallback
-import com.mancel.yann.boxoffice.views.adapters.FilmAdapter
+import com.mancel.yann.boxoffice.views.adapters.MovieAdapter
 import com.squareup.moshi.Moshi
 import kotlinx.android.synthetic.main.fragment_list.view.*
 import java.util.*
@@ -29,7 +29,7 @@ class ListFragment : BaseFragment(), AdapterCallback {
 
     // FIELDS --------------------------------------------------------------------------------------
 
-    private lateinit var mAdapter: FilmAdapter
+    private lateinit var mAdapter: MovieAdapter
 
     // METHODS -------------------------------------------------------------------------------------
 
@@ -43,10 +43,10 @@ class ListFragment : BaseFragment(), AdapterCallback {
         this.configureSwipeRefreshLayout()
 
         // LiveData
-        this.configureFilmLiveData(savedInstanceState)
+        this.configureMovieLiveData(savedInstanceState)
     }
 
-    override fun syncData() = this.mViewModel.fetchFilms(this.requireContext())
+    override fun syncData() = this.mViewModel.fetchMovies(this.requireContext())
 
     override fun searchData(newText: String) = this.mAdapter.filter.filter(newText)
 
@@ -64,14 +64,14 @@ class ListFragment : BaseFragment(), AdapterCallback {
         // Event for the parent activity
         this.mCallback?.navigationEvent()
 
-        // Film from Tag
-        val film = v?.tag as? Film
+        // Movie from Tag
+        val movie = v?.tag as? Movie
 
-        // Convert Film to Json
+        // Convert Movie to Json
         val json = Moshi.Builder()
                         .build()
-                        .adapter(Film::class.java)
-                        .toJson(film)
+                        .adapter(Movie::class.java)
+                        .toJson(movie)
 
         // Extra
         val imageForTransition = v?.findViewById<ImageView>(R.id.item_film_image)
@@ -94,7 +94,7 @@ class ListFragment : BaseFragment(), AdapterCallback {
      */
     private fun configureRecyclerView() {
         // Adapter
-        this.mAdapter = FilmAdapter(mCallback = this@ListFragment)
+        this.mAdapter = MovieAdapter(mCallback = this@ListFragment)
 
         // LayoutManager
         val viewManager = LinearLayoutManager(this.requireContext())
@@ -124,7 +124,7 @@ class ListFragment : BaseFragment(), AdapterCallback {
      */
     private fun configureSwipeRefreshLayout() {
         this.mRootView.fragment_list_SwipeRefreshLayout.setOnRefreshListener {
-            this.mViewModel.fetchFilms(this.requireContext())
+            this.mViewModel.fetchMovies(this.requireContext())
         }
     }
 
@@ -134,7 +134,7 @@ class ListFragment : BaseFragment(), AdapterCallback {
      * Configures the LiveData
      * @param savedInstanceState a [Bundle] to check the configuration changes of [ListFragment]
      */
-    private fun configureFilmLiveData(savedInstanceState: Bundle?) {
+    private fun configureMovieLiveData(savedInstanceState: Bundle?) {
         this.mViewModel
             .getFilms()
             .observe(this.viewLifecycleOwner, Observer {
@@ -144,13 +144,13 @@ class ListFragment : BaseFragment(), AdapterCallback {
                 }
 
                 // Sorts the list on its title from A to Z
-                Collections.sort(it, Film.AZTitleComparator())
+                Collections.sort(it, Movie.AZTitleComparator())
                 
                 this.mAdapter.updateData(it)
             })
 
         if (savedInstanceState == null) {
-            this.mViewModel.fetchFilms(this.requireContext())
+            this.mViewModel.fetchMovies(this.requireContext())
         }
     }
 }

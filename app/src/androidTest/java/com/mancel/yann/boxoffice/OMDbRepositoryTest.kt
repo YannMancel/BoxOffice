@@ -3,8 +3,8 @@ package com.mancel.yann.boxoffice
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.platform.app.InstrumentationRegistry
 import com.mancel.yann.boxoffice.apis.DummyBoxOffice
-import com.mancel.yann.boxoffice.models.Film
-import com.mancel.yann.boxoffice.repositories.FilmRepository
+import com.mancel.yann.boxoffice.models.Movie
+import com.mancel.yann.boxoffice.repositories.MovieRepository
 import com.mancel.yann.boxoffice.repositories.OMDbRepository
 import io.reactivex.observers.TestObserver
 import org.junit.Assert.assertEquals
@@ -16,14 +16,14 @@ import org.junit.runner.RunWith
  * Name of the project: BoxOffice
  * Name of the package: com.mancel.yann.boxoffice
  *
- * An android test on [FilmRepository].
+ * An android test on [MovieRepository].
  */
 @RunWith(AndroidJUnit4::class)
 class OMDbRepositoryTest {
 
     // FIELDS --------------------------------------------------------------------------------------
 
-    private val mRepository: FilmRepository = OMDbRepository()
+    private val mRepository: MovieRepository = OMDbRepository()
 
     private val mKey = InstrumentationRegistry.getInstrumentation()
                                               .targetContext
@@ -35,14 +35,14 @@ class OMDbRepositoryTest {
     @Test
     fun shouldFetchFilm() {
         // Get the movie's title
-        val title = DummyBoxOffice.filmNames[0]
+        val title = DummyBoxOffice.movieNames[0]
 
         // Creates Observable
-        val observable = this.mRepository.getStreamToFetchFilmByTitle(title = title,
+        val observable = this.mRepository.getStreamToFetchMovieByTitle(title = title,
                                                                       key = this.mKey)
 
         // Creates Observer
-        val observer = TestObserver<Film>()
+        val observer = TestObserver<Movie>()
 
         // Creates Stream
         observable.subscribeWith(observer)
@@ -51,19 +51,19 @@ class OMDbRepositoryTest {
                   .awaitTerminalEvent()
 
         // Fetches the result
-        val film = observer.values()[0]
+        val movie = observer.values()[0]
 
         // Test: Response
-        assertEquals(title, film.title)
+        assertEquals(title, movie.title)
     }
 
     @Test
     fun shouldFetchAllFilms() {
         // Creates Observable
-        val observable = this.mRepository.getStreamToFetchFilms(key = this.mKey)
+        val observable = this.mRepository.getStreamToFetchMovies(key = this.mKey)
 
         // Creates Observer
-        val observer = TestObserver<List<Film>>()
+        val observer = TestObserver<List<Movie>>()
 
         // Creates Stream
         observable.subscribeWith(observer)
@@ -72,9 +72,9 @@ class OMDbRepositoryTest {
                   .awaitTerminalEvent()
 
         // Fetches the result
-        val films = observer.values()[0]
+        val movies = observer.values()[0]
 
         // Test: Response
-        assertEquals(DummyBoxOffice.filmNames.size, films.size)
+        assertEquals(DummyBoxOffice.movieNames.size, movies.size)
     }
 }

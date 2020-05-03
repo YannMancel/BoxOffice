@@ -1,7 +1,7 @@
 package com.mancel.yann.boxoffice.utils
 
 import androidx.recyclerview.widget.DiffUtil
-import com.mancel.yann.boxoffice.models.Film
+import com.mancel.yann.boxoffice.models.Movie
 
 /**
  * Created by Yann MANCEL on 27/03/2020.
@@ -10,9 +10,9 @@ import com.mancel.yann.boxoffice.models.Film
  *
  * A [DiffUtil.Callback] subclass.
  */
-class FilmDiffCallback(
-    private val mOldList: List<Film>,
-    private val mNewList: List<Film>
+class MovieDiffCallback(
+    private val mOldList: List<Movie>,
+    private val mNewList: List<Movie>
 ) : DiffUtil.Callback() {
 
     // METHODS -------------------------------------------------------------------------------------

@@ -14,7 +14,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.transition.TransitionInflater
 import com.bumptech.glide.Glide
 import com.mancel.yann.boxoffice.R
-import com.mancel.yann.boxoffice.models.Film
+import com.mancel.yann.boxoffice.models.Movie
 import com.mancel.yann.boxoffice.utils.OMDbTools
 import com.mancel.yann.boxoffice.utils.setTransitionCompat
 import com.mancel.yann.boxoffice.views.adapters.ActorAdapter
@@ -39,7 +39,7 @@ class DetailsFragment : BaseFragment(), AdapterCallback {
         DetailsFragmentArgs.fromBundle(this.requireArguments()).jsonItem
     }
 
-    private var mFilm: Film? = null
+    private var mMovie: Movie? = null
     private lateinit var mActorAdapter: ActorAdapter
     private lateinit var mSimilarMovieAdapter: SimilarMovieAdapter
 
@@ -50,8 +50,8 @@ class DetailsFragment : BaseFragment(), AdapterCallback {
     override fun getFragmentLayout(): Int = R.layout.fragment_details
 
     override fun configureDesign(savedInstanceState: Bundle?) {
-        // Film
-        this.fetchFilmFromArgument()
+        // Movie
+        this.fetchMovieFromArgument()
 
         // My review
         this.fetchMyReview()
@@ -65,7 +65,7 @@ class DetailsFragment : BaseFragment(), AdapterCallback {
         this.configureUI()
 
         // LiveData
-        this.configureFilmLiveData(savedInstanceState)
+        this.configureMovieLiveData(savedInstanceState)
     }
 
     // -- Fragment --
@@ -86,14 +86,14 @@ class DetailsFragment : BaseFragment(), AdapterCallback {
     }
 
     override fun onClick(v: View?) {
-        // Film from Tag
-        val film = v?.tag as? Film
+        // Movie from Tag
+        val movie = v?.tag as? Movie
 
-        // Convert Film to Json
+        // Convert Movie to Json
         val json = Moshi.Builder()
                         .build()
-                        .adapter(Film::class.java)
-                        .toJson(film)
+                        .adapter(Movie::class.java)
+                        .toJson(movie)
 
         // Navigation by destination (Safe Args)
         val bundle = DetailsFragmentArgs(json).toBundle()
@@ -117,23 +117,23 @@ class DetailsFragment : BaseFragment(), AdapterCallback {
      * Configures UI for Transition
      */
     private fun configureUIForTransition() {
-        this.mFilm?.id?.let {
-            this.mRootView.fragment_details_image.setTransitionCompat("image", this.mFilm?.id!!)
-            this.mRootView.fragment_details_title.setTransitionCompat("title", this.mFilm?.id!!)
+        this.mMovie?.id?.let {
+            this.mRootView.fragment_details_image.setTransitionCompat("image", this.mMovie?.id!!)
+            this.mRootView.fragment_details_title.setTransitionCompat("title", this.mMovie?.id!!)
         }
     }
 
-    // -- Film --
+    // -- Movie --
 
     /**
-     * Fetches the [Film] from argument
+     * Fetches the [Movie] from argument
      */
-    private fun fetchFilmFromArgument() {
+    private fun fetchMovieFromArgument() {
         this.mJsonItem?.let {
             // Convert Json to Film
-            this.mFilm = Moshi.Builder()
+            this.mMovie = Moshi.Builder()
                               .build()
-                              .adapter(Film::class.java)
+                              .adapter(Movie::class.java)
                               .fromJson(it)
         }
     }
@@ -144,19 +144,19 @@ class DetailsFragment : BaseFragment(), AdapterCallback {
      * Fetches the user's review
      */
     private fun fetchMyReview() {
-        this.mFilm?.id?.let {
+        this.mMovie?.id?.let {
             this.mRootView.fragment_details_my_review_rate.rating =
-                this.mViewModel.fetchRatingOfFilm(
+                this.mViewModel.fetchRatingOfMovie(
                     this.requireContext(),
-                    this.mFilm!!
+                    this.mMovie!!
                 )
 
             this.mRootView.fragment_details_my_review_text.editText?.text?.let {
                 it.clear()
                 it.append(
-                    this.mViewModel.fetchCommentsOfFilm(
+                    this.mViewModel.fetchCommentsOfMovie(
                         this.requireContext(),
-                        this.mFilm!!
+                        this.mMovie!!
                     )
                 )
             }
@@ -221,14 +221,14 @@ class DetailsFragment : BaseFragment(), AdapterCallback {
      * Configures UI
      */
     private fun configureUI() {
-        this.mFilm?.let { film ->
+        this.mMovie?.let { movie ->
             // Title
-            film.title?.let { title ->
+            movie.title?.let { title ->
                 this.mRootView.fragment_details_title.text = title
             }
 
             // Image
-            film.poster?.let { poster ->
+            movie.poster?.let { poster ->
                 Glide.with(this@DetailsFragment)
                      .load(poster)
                      .centerCrop()
@@ -237,17 +237,17 @@ class DetailsFragment : BaseFragment(), AdapterCallback {
             }
 
             // Release
-            film.released?.let { release ->
+            movie.released?.let { release ->
                 this.mRootView.fragment_details_release.text = release
             }
 
             // Critics
-            film.critics?.let { critics ->
+            movie.critics?.let { critics ->
                 this.mRootView.fragment_details_critics.rating = critics.toFloat() * 5.0F / 100.0F
             }
 
             // Audience
-            film.audience?.let { audience ->
+            movie.audience?.let { audience ->
                 this.mRootView.fragment_details_audience.rating = audience.toFloat() * 5.0F / 10.0F
             }
 
@@ -259,12 +259,12 @@ class DetailsFragment : BaseFragment(), AdapterCallback {
             }
 
             // My preview
-            film.id?.let {
+            movie.id?.let {
                 this.mRootView.fragment_details_my_review_rate.setOnRatingBarChangeListener { _, rating, _ ->
                     // Save Rating
-                    this.mViewModel.saveRatingOfFilm(
+                    this.mViewModel.saveRatingOfMovie(
                         this.requireContext(),
-                        film = film,
+                        movie = movie,
                         rating = rating
                     )
 
@@ -290,9 +290,9 @@ class DetailsFragment : BaseFragment(), AdapterCallback {
 
                         override fun afterTextChanged(s: Editable?) {
                             // Save Comments
-                            this@DetailsFragment.mViewModel.saveCommentsOfFilm(
+                            this@DetailsFragment.mViewModel.saveCommentsOfMovie(
                                 this@DetailsFragment.requireContext(),
-                                film = film,
+                                movie = movie,
                                 comment = s.toString()
                             )
                         }
@@ -308,7 +308,7 @@ class DetailsFragment : BaseFragment(), AdapterCallback {
             }
 
             // Synopsis
-            film.synopsis?.let { synopsis ->
+            movie.synopsis?.let { synopsis ->
                 this.mRootView.fragment_details_plot.text = synopsis }
 
             // Title: Casting
@@ -319,7 +319,7 @@ class DetailsFragment : BaseFragment(), AdapterCallback {
             }
 
             // Casting
-            film.actors?.let { casting ->
+            movie.actors?.let { casting ->
                 this.mActorAdapter.updateData(OMDbTools.getData(casting))
             }
 
@@ -338,19 +338,19 @@ class DetailsFragment : BaseFragment(), AdapterCallback {
      * Configures the LiveData
      * @param savedInstanceState a [Bundle] to check the configuration changes of [DetailsFragment]
      */
-    private fun configureFilmLiveData(savedInstanceState: Bundle?) {
+    private fun configureMovieLiveData(savedInstanceState: Bundle?) {
         this.mViewModel
             .getFilms()
             .observe(this.viewLifecycleOwner, Observer {
                 val similarMovies = this.getSimilarMovies(it)
 
-                Collections.sort(similarMovies, Film.AZTitleComparator())
+                Collections.sort(similarMovies, Movie.AZTitleComparator())
 
                 this.mSimilarMovieAdapter.updateData(similarMovies)
             })
 
         if (savedInstanceState == null) {
-            this.mViewModel.fetchFilms(this.requireContext())
+            this.mViewModel.fetchMovies(this.requireContext())
         }
     }
 
@@ -358,15 +358,15 @@ class DetailsFragment : BaseFragment(), AdapterCallback {
 
     /**
      * Gets the similar movies
-     * @param movies a [List] of [Film]
-     * @return a [List] of [Film] that is filtered by genre
+     * @param movies a [List] of [Movie]
+     * @return a [List] of [Movie] that is filtered by genre
      */
-    private fun getSimilarMovies(movies: List<Film>): List<Film> {
-        val genresOfSelectedFilm = OMDbTools.getData(this.mFilm?.genre ?: "")
+    private fun getSimilarMovies(movies: List<Movie>): List<Movie> {
+        val genresOfSelectedFilm = OMDbTools.getData(this.mMovie?.genre ?: "")
 
-        return movies.filter { film ->
+        return movies.filter { movie ->
             var isSimilar = false
-            val genres = OMDbTools.getData(film.genre ?: "")
+            val genres = OMDbTools.getData(movie.genre ?: "")
 
             genres.forEach { genre ->
                 genresOfSelectedFilm.forEach {
@@ -378,9 +378,9 @@ class DetailsFragment : BaseFragment(), AdapterCallback {
 
             isSimilar
         }
-        .filter { film ->
-            // Remove the selected film
-            this.mFilm?.id != film.id
+        .filter { movie ->
+            // Remove the selected movie
+            this.mMovie?.id != movie.id
         }
     }
 }

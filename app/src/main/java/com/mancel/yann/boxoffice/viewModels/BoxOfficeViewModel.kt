@@ -4,9 +4,9 @@ import android.content.Context
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import com.mancel.yann.boxoffice.R
-import com.mancel.yann.boxoffice.liveDatas.FilmLiveData
-import com.mancel.yann.boxoffice.models.Film
-import com.mancel.yann.boxoffice.repositories.FilmRepository
+import com.mancel.yann.boxoffice.liveDatas.MovieLiveData
+import com.mancel.yann.boxoffice.models.Movie
+import com.mancel.yann.boxoffice.repositories.MovieRepository
 
 /**
  * Created by Yann MANCEL on 29/03/2020.
@@ -16,89 +16,89 @@ import com.mancel.yann.boxoffice.repositories.FilmRepository
  * A [ViewModel] subclass.
  */
 class BoxOfficeViewModel(
-    private val mFilmRepository: FilmRepository
+    private val mMovieRepository: MovieRepository
 ) : ViewModel() {
 
     // FIELDS --------------------------------------------------------------------------------------
 
-    private var mFilms: FilmLiveData? = null
+    private var mMovies: MovieLiveData? = null
 
     // METHODS -------------------------------------------------------------------------------------
 
     // -- LiveData --
 
     /**
-     * Get all [Film] from [FilmRepository]
-     * @return a [LiveData] of [List] of [Film]
+     * Get all [Movie] from [MovieRepository]
+     * @return a [LiveData] of [List] of [Movie]
      */
-    fun getFilms(): LiveData<List<Film>> {
-        if (this.mFilms == null) {
-            this.mFilms = FilmLiveData()
+    fun getFilms(): LiveData<List<Movie>> {
+        if (this.mMovies == null) {
+            this.mMovies = MovieLiveData()
         }
-        return this.mFilms!!
+        return this.mMovies!!
     }
 
     /**
-     * Fetches the films from [FilmLiveData]
+     * Fetches the movies from [MovieLiveData]
      * @param context a [Context]
      */
-    fun fetchFilms(context: Context) {
-        this.mFilms?.let {
+    fun fetchMovies(context: Context) {
+        this.mMovies?.let {
             // key
             val key = context.getString(R.string.omdb_key)
 
             // Fetches data
-            it.getFilmsWithSingle(this.mFilmRepository.getStreamToFetchFilms(key))
+            it.getMoviesWithSingle(this.mMovieRepository.getStreamToFetchMovies(key))
         }
     }
 
-    // -- Rating of film --
+    // -- Rating of movie --
 
     /**
-     * Saves the rating of [Film]
+     * Saves the rating of [Movie]
      * @param context   a [Context]
-     * @param film      a [Film]
+     * @param movie     a [Movie]
      * @param rating    a [Float] that contains the rating value
      */
-    fun saveRatingOfFilm(
+    fun saveRatingOfMovie(
         context: Context,
-        film: Film,
+        movie: Movie,
         rating: Float
-    ) = this.mFilmRepository.saveRatingOfFilm(context, film, rating)
+    ) = this.mMovieRepository.saveRatingOfMovie(context, movie, rating)
 
     /**
-     * Fetches the rating of [Film]
+     * Fetches the rating of [Movie]
      * @param context   a [Context]
-     * @param film      a [Film]
+     * @param movie     a [Movie]
      * @return a [Float] that contains the rating value
      */
-    fun fetchRatingOfFilm(
+    fun fetchRatingOfMovie(
         context: Context,
-        film: Film
-    ): Float = this.mFilmRepository.fetchRatingOfFilm(context, film)
+        movie: Movie
+    ): Float = this.mMovieRepository.fetchRatingOfMovie(context, movie)
 
     // -- Comments of film --
 
     /**
-     * Saves the comments of [Film]
+     * Saves the comments of [Movie]
      * @param context   a [Context]
-     * @param film      a [Film]
+     * @param movie     a [Movie]
      * @param comment   a [String] that contains the comment
      */
-    fun saveCommentsOfFilm(
+    fun saveCommentsOfMovie(
         context: Context,
-        film: Film,
+        movie: Movie,
         comment: String
-    ) = this.mFilmRepository.saveCommentsOfFilm(context, film, comment)
+    ) = this.mMovieRepository.saveCommentsOfMovie(context, movie, comment)
 
     /**
-     * Fetches the comments of [Film]
+     * Fetches the comments of [Movie]
      * @param context   a [Context]
-     * @param film      a [Film]
+     * @param movie     a [Movie]
      * @return a [String] that contains the comment
      */
-    fun fetchCommentsOfFilm(
+    fun fetchCommentsOfMovie(
         context: Context,
-        film: Film
-    ): String = this.mFilmRepository.fetchCommentsOfFilm(context, film)
+        movie: Movie
+    ): String = this.mMovieRepository.fetchCommentsOfMovie(context, movie)
 }

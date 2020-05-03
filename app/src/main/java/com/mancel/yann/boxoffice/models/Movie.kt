@@ -8,7 +8,7 @@ import com.squareup.moshi.JsonClass
  * Name of the package: com.mancel.yann.boxoffice.models
  */
 @JsonClass(generateAdapter = true)
-data class Film(
+data class Movie(
     var id: String? = null,
     var title: String? = null,
     var released: String? = null,
@@ -24,10 +24,10 @@ data class Film(
     // NESTED CLASSES ------------------------------------------------------------------------------
 
     /**
-     * A [Comparator] of [Film] subclass.
+     * A [Comparator] of [Movie] subclass.
      */
-    class AZTitleComparator : Comparator<Film> {
-        override fun compare(left: Film?, right: Film?): Int {
+    class AZTitleComparator : Comparator<Movie> {
+        override fun compare(left: Movie?, right: Movie?): Int {
             // Comparison on the film's title
             val titleLeft = left?.title ?: ""
             val titleRight = right?.title ?: ""
