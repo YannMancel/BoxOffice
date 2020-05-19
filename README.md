@@ -1,6 +1,16 @@
 # Box Office
 
-**Goal**: Create an android application allowing to consult the films into the box office. Its name is **Box Office**.
+**Goal**: Create an android application allowing to consult the films into the box office.
+
+
+## Phone display
+<p align="middle">
+     <img src="./screenshots/record.gif" width="30%" height="30%">
+</p>
+<p align="middle">
+     <img src="./screenshots/phone_1.png" width="30%" height="30%"> <img src="./screenshots/phone_2.png" width="30%"   height="30%">
+</p>
+
 
 ## Requirements
 * Computer (Windows, Mac or Linux)
